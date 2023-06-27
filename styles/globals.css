@@ -1,0 +1,89 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  background-image: linear-gradient(90deg,#243b55,#182539);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  overflow-x: hidden;
+  font-family: Square !important;
+  color:#ececec;
+  
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+.MuiTableScrollbar {
+  height: 20px;
+}
+.MuiTypography-root {
+  font-family: Square;
+}
+
+.MuiButton-root {
+  border:1px solid #454f5b;
+  border-radius: 0.5rem !important;
+  background-color: #203349;
+  font-size:1rem;
+  color:#ececec;
+  letter-spacing: 1px;
+  padding: 0.5rem,1rem,0.5rem,1rem !important;
+  text-transform: capitalize;
+  /* margin:15px; */
+  cursor: pointer;
+  width:100%;
+  font-family: Square;
+}
+.MuiButton-root:hover{
+  background-color: #182539 !important;
+}
+.MuiMenu-root .MuiPaper-root {
+  background-color:#203349 !important;
+  color:#ececec;
+  min-width: 150px;
+  border:1px solid #5a5b5f;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+.MuiMenu-root ul li{
+  padding:0;
+  font-family: Square;
+}
+.MuiMenu-root ul li:hover{
+  background-color: hsla(0,0%,100%,.15);
+  color:#ececec;
+}
+.MuiMenu-root ul li:active{
+  background-color: #0d6efd;
+  color:#fff;
+}
+.MuiMenuItem-root {
+  justify-content: center;
+}
+* {
+  box-sizing: border-box;
+}
+
+
+
+@font-face {
+  font-family: 'Square';
+  src: url('../assets/fonts/EuclidSquare-Medium.woff') format('opentype');
+}
+
+
+
+
+input[type='number']::-webkit-clear-button {
+  display: none;
+}
+
+input[type='number']::-webkit-inner-spin-button {
+  display: none;
+}
+
+input[type='number']::-webkit-outside-spin-button {
+  display: none;
+}
