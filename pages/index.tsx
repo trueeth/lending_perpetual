@@ -16,7 +16,18 @@ import Button from '@mui/material/Button'
 import ArrowDropDownSharpIcon from '@mui/icons-material/ArrowDropDownSharp'
 import { Container } from '@mui/material'
 import EnhancedTable from '../components/Styled/Table'
+import { makeStyles } from '@mui/styles'
 
+const useStyles = makeStyles({
+  root: {
+    '& .MuiSvgIcon-root': {
+      fill: 'white',
+      '&:hover': {
+        backgroundColor: 'white',
+      },
+    },
+  },
+})
 const IndexPage = () => {
   const [anchorState, setAnchorState] = React.useState<any | null>({
     btn1: null,
@@ -30,7 +41,7 @@ const IndexPage = () => {
   const handleClose = (e) => {
     setAnchorState({ [e.target.name]: null })
   }
-
+  const classes = useStyles()
   return (
     <>
       <Container
@@ -146,23 +157,28 @@ const IndexPage = () => {
               <Box
                 sx={{
                   display: 'flex',
-                  justifyContent: 'space-between',
+                  justifyContent: 'center',
                   alignItems: 'center',
-                  flexDirection: { xs: 'column', md: 'row' },
-                  gap: 2,
+                  flexWrap: 'wrap',
+
+                  gap: 5,
                   p: 2,
                   bgcolor: '#1c2c42',
                   minHeight: '68px !important',
                   borderRadius: 5,
                   '& .MuiButton-root': {
                     whiteSpace: 'nowrap',
-
                     padding: 'auto 20px',
+                    maxWidth: '140px',
                   },
                 }}
               >
-                <Button variant="outlined">My Account</Button>
-                <Button variant="outlined">Dashboard</Button>
+                <Link href="./account">
+                  <Button variant="outlined">My Account</Button>
+                </Link>
+                <Link href="./dashboard">
+                  <Button variant="outlined">Dashboard</Button>
+                </Link>
                 <Button variant="outlined">New Loan</Button>
               </Box>
             </Grid>
@@ -210,16 +226,7 @@ const IndexPage = () => {
             >
               <FormControlLabel
                 value="start"
-                control={
-                  <Checkbox
-                    sx={{
-                      color: '#eee',
-                      '&.Mui-checked': {
-                        color: '#eee',
-                      },
-                    }}
-                  />
-                }
+                control={<Checkbox className={classes.root} />}
                 label="History"
                 labelPlacement="start"
               />
@@ -232,6 +239,9 @@ const IndexPage = () => {
                   gap: 2,
                   '& .MuiButton-root': {
                     width: 'fit-content',
+                    '&:hover': {
+                      borderColor: '#454f5b',
+                    },
                   },
                 }}
               >

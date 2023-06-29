@@ -4,8 +4,11 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 import ArrowDropDownSharpIcon from '@mui/icons-material/ArrowDropDownSharp'
+import { useRouter } from 'next/router'
 
 const Header = () => {
+  const router = useRouter()
+  console.log(router.pathname)
   const [anchorState, setAnchorState] = React.useState<any | null>({
     btn1: null,
     btn2: null,
@@ -75,7 +78,13 @@ const Header = () => {
             <Typography
               sx={{ fontSize: '40px', fontFamily: 'Square !important' }}
             >
-              Orders Book
+              {router.pathname == '/'
+                ? 'Orders Book'
+                : router.pathname == '/account'
+                ? 'My Account'
+                : router.pathname == '/dashboard'
+                ? 'Dashboard'
+                : ''}
             </Typography>
           </Box>
           <Box
