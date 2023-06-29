@@ -16,7 +16,6 @@
     "@mui/styles": "^5.13.2",
     "connectkit": "^1.4.0",
     "eslint": "^8.43.0",
-    "fs": "^0.0.1-security",
     "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

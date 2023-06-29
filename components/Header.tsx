@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 import ArrowDropDownSharpIcon from '@mui/icons-material/ArrowDropDownSharp'
 import { useRouter } from 'next/router'
-
+// import { ConnectKitButton } from 'connectkit'
 const Header = () => {
   const router = useRouter()
   console.log(router.pathname)
@@ -155,6 +155,7 @@ const Header = () => {
                 <MenuItem>Binance</MenuItem>
               </Menu>
             </Box>
+            {/* <ConnectKitButton /> */}
           </Box>
         </Box>
       </Toolbar>

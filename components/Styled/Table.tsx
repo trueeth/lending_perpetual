@@ -1,12 +1,12 @@
 import * as React from 'react'
-import Box from '@mui/material/Box'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import { makeStyles } from '@mui/styles'
+import {
+  TableCell,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material'
 
 interface Data {
   calories: number
@@ -39,43 +39,8 @@ const rows = [
   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
   createData('Gingerbread', 356, 16.0, 49, 3.9),
   createData('Honeycomb', 408, 3.2, 87, 6.5),
-  // createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  // createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  // createData('KitKat', 518, 26.0, 65, 7.0),
-  // createData('Lollipop', 392, 0.2, 98, 0.0),
-  // createData('Marshmallow', 318, 0, 81, 2.0),
-  // createData('Nougat', 360, 19.0, 9, 37.0),
-  // createData('Oreo', 437, 18.0, 63, 4.0),
 ]
-const useStyles = makeStyles({
-  root: {
-    '& .MuiTableCell-head': {
-      color: '#9597a1',
-      backgroundColor: '#1f304a',
-      textAlign: 'center',
-      fontFamily: 'square',
-      fontSize: '15px',
-      borderBottom: 'none',
-      paddingTop: '10px',
-      paddingBottom: '10px',
-    },
-  },
-})
 
-const TableHeader = () => {
-  const classes = useStyles()
-  return (
-    <TableHead>
-      <TableRow className={classes.root}>
-        <TableCell>Loan Amount</TableCell>
-        <TableCell>Collateral Amount</TableCell>
-        <TableCell>Lender Fee</TableCell>
-        <TableCell>Duration</TableCell>
-        <TableCell>Reward</TableCell>
-      </TableRow>
-    </TableHead>
-  )
-}
 function StyledTable() {
   return (
     <TableContainer
@@ -91,9 +56,6 @@ function StyledTable() {
           backgroundColor: '#294171',
           borderRadius: '20px',
         },
-        // '&MuiTableScrollbar': {
-        //   height: '20px',
-        // },
       }}
     >
       <Table
@@ -102,13 +64,31 @@ function StyledTable() {
           borderCollapse: 'separate',
         }}
       >
-        <TableHeader />
+        {' '}
+        <TableHead>
+          <TableRow
+            sx={{
+              '& .MuiTableCell-root': {
+                color: '#9597a1',
+                backgroundColor: '#1f304a',
+                textAlign: 'center',
+                fontFamily: 'square',
+                fontSize: '15px',
+                borderBottom: 'none',
+                paddingTop: '10px',
+                paddingBottom: '10px',
+              },
+            }}
+          >
+            <TableCell>Loan Amount</TableCell>
+            <TableCell>Collateral Amount</TableCell>
+            <TableCell>Lender Fee</TableCell>
+            <TableCell>Duration</TableCell>
+            <TableCell>Reward</TableCell>
+          </TableRow>
+        </TableHead>
         <TableBody>
           {rows.map((row: any, index) => {
-            function scale(arg0: number) {
-              throw new Error('Function not implemented.')
-            }
-
             return (
               <TableRow
                 key={index}

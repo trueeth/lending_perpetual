@@ -17,6 +17,7 @@ import ArrowDropDownSharpIcon from '@mui/icons-material/ArrowDropDownSharp'
 import { Container } from '@mui/material'
 import EnhancedTable from '../components/Styled/Table'
 import { makeStyles } from '@mui/styles'
+import LoanDialog from '../components/Styled/LoanDialog'
 
 const useStyles = makeStyles({
   root: {
@@ -42,6 +43,13 @@ const IndexPage = () => {
     setAnchorState({ [e.target.name]: null })
   }
   const classes = useStyles()
+
+  //dialog
+  const [visible, setVisible] = React.useState(false)
+
+  const handleCloseDialog = () => {
+    setVisible(false)
+  }
   return (
     <>
       <Container
@@ -71,7 +79,7 @@ const IndexPage = () => {
                   '& .MuiBox-root': {
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 2,
+                    gap: 3,
                   },
                 }}
               >
@@ -160,8 +168,7 @@ const IndexPage = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   flexWrap: 'wrap',
-
-                  gap: 5,
+                  gap: 3,
                   p: 2,
                   bgcolor: '#1c2c42',
                   minHeight: '68px !important',
@@ -179,7 +186,9 @@ const IndexPage = () => {
                 <Link href="./dashboard">
                   <Button variant="outlined">Dashboard</Button>
                 </Link>
-                <Button variant="outlined">New Loan</Button>
+                <Button variant="outlined" onClick={() => setVisible(true)}>
+                  New Loan
+                </Button>
               </Box>
             </Grid>
           </Grid>
@@ -254,6 +263,7 @@ const IndexPage = () => {
           <Divider sx={{ bgcolor: '#141e2f', p: '0.2px' }} />
           <EnhancedTable />
         </Box>
+        <LoanDialog open={visible} handleClose={() => setVisible(false)} />
       </Container>
     </>
   )

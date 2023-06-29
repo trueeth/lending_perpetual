@@ -38,7 +38,7 @@ const IndexPage = () => {
                   display: 'flex',
                   justifyContent: 'center',
                   flexWrap: 'wrap',
-                  gap: 3,
+                  gap: 5,
                   alignItems: 'center',
                   p: { xs: 1, md: 2 },
                   bgcolor: '#1c2c42',
@@ -89,8 +89,7 @@ const IndexPage = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   flexWrap: 'wrap',
-
-                  gap: 5,
+                  gap: 3,
                   p: 2,
                   bgcolor: '#1c2c42',
                   minHeight: '68px !important',

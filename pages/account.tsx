@@ -78,7 +78,7 @@ const IndexPage = () => {
                   justifyContent: 'center',
                   flexWrap: 'wrap',
                   alignItems: 'center',
-                  gap: 5,
+                  gap: 3,
                   p: 2,
                   bgcolor: '#1c2c42',
                   minHeight: '68px !important',

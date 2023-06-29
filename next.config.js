@@ -1,16 +1,20 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-  reactStrictMode: true,
-}
-const nextConfig = {
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
-    })
+module.exports = (phase, { defaultConfig }) => {
+  return {
+    ...defaultConfig,
 
-    return config
-  },
+    webpack: (config) => {
+      config.resolve = {
+        ...config.resolve,
+        fallback: {
+          "fs": false,
+          "path": false,
+          "os": false,
+          'net': false, 
+          'tls':false
+        }
+      }
+      return config
+    },
+  }
 }
-module.exports = nextConfig
