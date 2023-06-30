@@ -1,14 +1,6 @@
 import Link from 'next/link'
 //import Layout from '../components/Layout'
-import {
-  Box,
-  Checkbox,
-  CssBaseline,
-  Divider,
-  FormControlLabel,
-  Grid,
-  Typography,
-} from '@mui/material'
+import { Box, Divider, FormControlLabel, Grid, Typography } from '@mui/material'
 import * as React from 'react'
 import Menu, { MenuProps } from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -16,19 +8,8 @@ import Button from '@mui/material/Button'
 import ArrowDropDownSharpIcon from '@mui/icons-material/ArrowDropDownSharp'
 import { Container } from '@mui/material'
 import EnhancedTable from '../components/Styled/Table'
-import { makeStyles } from '@mui/styles'
-import LoanDialog from '../components/Styled/LoanDialog'
-
-const useStyles = makeStyles({
-  root: {
-    '& .MuiSvgIcon-root': {
-      fill: 'white',
-      '&:hover': {
-        backgroundColor: 'white',
-      },
-    },
-  },
-})
+import SupplyDialog from '../components/Styled/SupplyDialog'
+import CustomCheckBox from '../components/Styled/CheckBox'
 const IndexPage = () => {
   const [anchorState, setAnchorState] = React.useState<any | null>({
     btn1: null,
@@ -42,7 +23,6 @@ const IndexPage = () => {
   const handleClose = (e) => {
     setAnchorState({ [e.target.name]: null })
   }
-  const classes = useStyles()
 
   //dialog
   const [visible, setVisible] = React.useState(false)
@@ -60,6 +40,7 @@ const IndexPage = () => {
           mt: 2,
           width: '100%',
           fontFamily: 'Rubik',
+          overflow: 'auto',
         }}
       >
         <Box sx={{ display: 'flex', width: '100%' }}>
@@ -234,8 +215,7 @@ const IndexPage = () => {
               }}
             >
               <FormControlLabel
-                value="start"
-                control={<Checkbox className={classes.root} />}
+                control={<CustomCheckBox />}
                 label="History"
                 labelPlacement="start"
               />
@@ -263,7 +243,7 @@ const IndexPage = () => {
           <Divider sx={{ bgcolor: '#141e2f', p: '0.2px' }} />
           <EnhancedTable />
         </Box>
-        <LoanDialog open={visible} handleClose={() => setVisible(false)} />
+        <SupplyDialog open={visible} handleClose={() => setVisible(false)} />
       </Container>
     </>
   )

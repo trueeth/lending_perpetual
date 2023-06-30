@@ -17,7 +17,14 @@ import * as React from 'react'
 import Button from '@mui/material/Button'
 import { Container } from '@mui/material'
 
+import LoanDialog from '../components/Styled/SupplyDialog'
+
 const IndexPage = () => {
+  const [visible, setVisible] = React.useState(false)
+
+  const handleCloseDialog = () => {
+    setVisible(false)
+  }
   return (
     <>
       <Container
@@ -107,7 +114,9 @@ const IndexPage = () => {
                 <Link href="/">
                   <Button variant="outlined">Orders Book</Button>
                 </Link>
-                <Button variant="outlined">New Loan</Button>
+                <Button variant="outlined" onClick={() => setVisible(true)}>
+                  New Loan
+                </Button>
               </Box>
             </Grid>
           </Grid>
@@ -133,6 +142,7 @@ const IndexPage = () => {
               mx: { xs: 1, md: 8 },
               bgcolor: '#182539',
               borderRadius: '15px',
+              p: 2,
             }}
           >
             <Box
@@ -140,6 +150,7 @@ const IndexPage = () => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 px: '20px',
+                mb: 1,
               }}
             >
               <Typography sx={{ mt: 1, letterSpacing: 1 }}>
@@ -214,6 +225,7 @@ const IndexPage = () => {
                     '& .MuiTypography-root': {
                       fontSize: '13px',
                       color: '#9597a1',
+                      mt: 1,
                     },
                   }}
                 >
@@ -238,6 +250,7 @@ const IndexPage = () => {
                     '& .MuiTypography-root': {
                       fontSize: '13px',
                       color: '#9597a1',
+                      mt: 1,
                     },
                   }}
                 >
@@ -280,9 +293,13 @@ const IndexPage = () => {
                 sx={{
                   display: 'flex',
                   justifyContent: 'space-around',
-                  gap: 8,
+                  flexDirection: { xs: 'column', md: 'row' },
                   px: 5,
-                  '& .MuiButton-root': { mb: 1, mt: 1 },
+                  gap: 2,
+                  '& .MuiButton-root': {
+                    whiteSpace: 'nowrap',
+                    px: 0.5,
+                  },
                 }}
               >
                 <Button variant="outlined">Approve & Buy</Button>
@@ -291,6 +308,7 @@ const IndexPage = () => {
             </Box>
           </Box>
         </Box>
+        <LoanDialog open={visible} handleClose={() => setVisible(false)} />
       </Container>
     </>
   )
