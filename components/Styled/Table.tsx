@@ -6,39 +6,41 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
+  Box,
 } from '@mui/material'
 
 interface Data {
-  calories: number
-  carbs: number
-  fat: number
-  name: string
-  protein: number
+  loan: number
+  collateral: number
+  fee: number
+  duration: string
+  reward: number
 }
 
 function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
+  loan: number,
+  collateral: number,
+  fee: number,
+  duration: string,
+  reward: number
 ): Data {
   return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    loan,
+    collateral,
+    fee,
+    duration,
+    reward,
   }
 }
 
 const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
+  createData(1000, 1250, 0, '12 days', 2800),
+  createData(1000, 1250, 0, '12 days', 2800),
+  createData(1000, 1250, 0, '10 days', 2800),
+  createData(1000, 1250, 0, 'closed', 0),
+  createData(1000, 1250, 0, 'closed', 0),
+  createData(1000, 1250, 0, 'closed', 0),
 ]
 
 function StyledTable() {
@@ -122,11 +124,69 @@ function StyledTable() {
                   },
                 }}
               >
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.calories}</TableCell>
-                <TableCell>{row.fat}</TableCell>
-                <TableCell>{row.carbs}</TableCell>
-                <TableCell>{row.protein}</TableCell>
+                <TableCell>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      gap: 2,
+                    }}
+                  >
+                    <img
+                      src="https://arbiscan.io/token/images/tether_32.png"
+                      alt="img"
+                      width="30"
+                      height="30"
+                    />
+                    <Typography>{row.loan} USDT</Typography>
+                  </Box>
+                </TableCell>
+                <TableCell>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      gap: 2,
+                    }}
+                  >
+                    <img
+                      src="https://arbiscan.io/token/images/centre-usdc_28.png"
+                      alt="img"
+                      width="30"
+                      height="30"
+                    />
+                    <Typography>{row.collateral} USDC</Typography>
+                  </Box>
+                </TableCell>
+                <TableCell>
+                  <Typography sx={{ color: 'rgb(0, 247, 167)' }}>
+                    {row.fee}% fee
+                  </Typography>
+                </TableCell>
+                <TableCell>{row.duration}</TableCell>
+                <TableCell>
+                  {' '}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      gap: 2,
+                    }}
+                  >
+                    <img
+                      src="https://twopaws.app/static/media/TWOPAW.75a7c20b8a536d2f3310900c94cf2bbf.svg"
+                      alt="img"
+                      width="30"
+                      height="30"
+                    />
+                    <Typography sx={{ color: 'rgb(0, 247, 167)' }}>
+                      {row.reward}
+                    </Typography>
+                  </Box>
+                </TableCell>
               </TableRow>
             )
           })}

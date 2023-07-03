@@ -1,45 +1,39 @@
 import * as React from 'react'
-
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
+import {
+  TableCell,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Box,
+} from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 interface Data {
-  calories: number
-  carbs: number
-  fat: number
-  name: string
-  protein: number
+  loan: number
+  collateral: number
+  fee: number
 }
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-): Data {
+function createData(loan: number, collateral: number, fee: number): Data {
   return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    loan,
+    collateral,
+    fee,
   }
 }
 
 const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
+  createData(1000, 1250, 0),
+  createData(1000, 1250, 0),
+  createData(1000, 1250, 0),
+  createData(1000, 1250, 0),
+  createData(1000, 1250, 0),
+  createData(1000, 1250, 0),
 ]
+
 const useStyles = makeStyles({
   root: {
     '& .MuiTableCell-head': {
@@ -82,9 +76,6 @@ function StyledTable() {
           backgroundColor: '#294171',
           borderRadius: '20px',
         },
-        // '&MuiTableScrollbar': {
-        //   height: '20px',
-        // },
       }}
     >
       <Table
@@ -93,13 +84,29 @@ function StyledTable() {
           borderCollapse: 'separate',
         }}
       >
-        <TableHeader />
+        {' '}
+        <TableHead>
+          <TableRow
+            sx={{
+              '& .MuiTableCell-root': {
+                color: '#9597a1',
+                backgroundColor: '#1f304a',
+                textAlign: 'center',
+                fontFamily: 'square',
+                fontSize: '15px',
+                borderBottom: 'none',
+                paddingTop: '10px',
+                paddingBottom: '10px',
+              },
+            }}
+          >
+            <TableCell>Loan Amount</TableCell>
+            <TableCell>Collateral Amount</TableCell>
+            <TableCell>Lender Fee</TableCell>
+          </TableRow>
+        </TableHead>
         <TableBody>
           {rows.map((row: any, index) => {
-            function scale(arg0: number) {
-              throw new Error('Function not implemented.')
-            }
-
             return (
               <TableRow
                 key={index}
@@ -133,9 +140,47 @@ function StyledTable() {
                   },
                 }}
               >
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.calories}</TableCell>
-                <TableCell>{row.fat}</TableCell>
+                <TableCell>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      gap: 2,
+                    }}
+                  >
+                    <img
+                      src="https://arbiscan.io/token/images/tether_32.png"
+                      alt="img"
+                      width="30"
+                      height="30"
+                    />
+                    <Typography>{row.loan} USDT</Typography>
+                  </Box>
+                </TableCell>
+                <TableCell>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      gap: 2,
+                    }}
+                  >
+                    <img
+                      src="https://arbiscan.io/token/images/centre-usdc_28.png"
+                      alt="img"
+                      width="30"
+                      height="30"
+                    />
+                    <Typography>{row.collateral} USDC</Typography>
+                  </Box>
+                </TableCell>
+                <TableCell>
+                  <Typography sx={{ color: 'rgb(0, 247, 167)' }}>
+                    {row.fee}% fee
+                  </Typography>
+                </TableCell>
               </TableRow>
             )
           })}

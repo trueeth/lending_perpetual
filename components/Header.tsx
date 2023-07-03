@@ -137,23 +137,8 @@ const Header = () => {
                 onClick={handleClick}
                 name="btn2"
               >
-                Unknown
-                <ArrowDropDownSharpIcon />
+                Avalanche
               </Button>
-              <Menu
-                id="basic-menu-2"
-                anchorEl={anchorState.btn2}
-                open={Boolean(anchorState.btn2)}
-                onClose={handleClose}
-                MenuListProps={{
-                  'aria-labelledby': 'basic-button-2',
-                }}
-                elevation={0}
-              >
-                <MenuItem>Ethereum</MenuItem>
-                <MenuItem>Arbitrum</MenuItem>
-                <MenuItem>Binance</MenuItem>
-              </Menu>
             </Box>
             {/* <ConnectKitButton /> */}
           </Box>

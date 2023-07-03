@@ -1,23 +1,14 @@
 import * as React from 'react'
 import CloseIcon from '@mui/icons-material/Close'
-import {
-  Typography,
-  Dialog,
-  Box,
-  Button,
-  TextField,
-  FormControlLabel,
-  Link,
-} from '@mui/material'
-import Menu, { MenuProps } from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
+import { Typography, Dialog, Box, Button } from '@mui/material'
 import CustomDate from './Date'
-import CustomCheckBox from './CheckBox'
 import SupplySelectToken from './SupplySelectToken'
 import SupplyCalculate from './SupplyCalculate'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import BorrowSelectToken from './BorrowSelectToken'
 import BorrowCalculate from './BorrowCalculate'
+import { useMediaQuery } from '@mui/material'
+import MobileDate from './MobileDate'
 
 interface IOpenProps {
   open: boolean
@@ -25,6 +16,7 @@ interface IOpenProps {
 }
 
 export default function SupplyDialog({ open, handleClose }: IOpenProps) {
+  const isMobile = useMediaQuery('(max-width:768px)')
   const [view, setview] = useState('supply')
   return (
     <Dialog
@@ -40,11 +32,6 @@ export default function SupplyDialog({ open, handleClose }: IOpenProps) {
         },
       }}
       scroll={'body'}
-      // sx={{
-      //   '& .MuiButton-root': {
-      //     maxWidth: '150px',
-      //   },
-      // }}
     >
       <Box
         sx={{
@@ -102,11 +89,11 @@ export default function SupplyDialog({ open, handleClose }: IOpenProps) {
         <Typography ml={2} mb={0.5}>
           The repayment period for this credit starts on:
         </Typography>
-        <CustomDate />
+        {isMobile ? <MobileDate /> : <CustomDate />}
         <Typography ml={2} mb={0.5}>
           Ends on:
         </Typography>
-        <CustomDate />
+        {isMobile ? <MobileDate /> : <CustomDate />}
       </Box>
 
       {view === 'supply' ? <SupplyCalculate /> : <BorrowCalculate />}

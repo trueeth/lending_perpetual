@@ -17,7 +17,7 @@ import * as React from 'react'
 import Button from '@mui/material/Button'
 import { Container } from '@mui/material'
 
-import LoanDialog from '../components/Styled/SupplyDialog'
+import SupplyDialog from '../components/Styled/SupplyDialog'
 
 const IndexPage = () => {
   const [visible, setVisible] = React.useState(false)
@@ -308,7 +308,7 @@ const IndexPage = () => {
             </Box>
           </Box>
         </Box>
-        <LoanDialog open={visible} handleClose={() => setVisible(false)} />
+        <SupplyDialog open={visible} handleClose={() => setVisible(false)} />
       </Container>
     </>
   )

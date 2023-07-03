@@ -5,25 +5,13 @@ import * as React from 'react'
 import Menu, { MenuProps } from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
-import ArrowDropDownSharpIcon from '@mui/icons-material/ArrowDropDownSharp'
 import { Container } from '@mui/material'
 import EnhancedTable from '../components/Styled/Table'
 import SupplyDialog from '../components/Styled/SupplyDialog'
 import CustomCheckBox from '../components/Styled/CheckBox'
+import Filter from '../components/Styled/Filter'
+
 const IndexPage = () => {
-  const [anchorState, setAnchorState] = React.useState<any | null>({
-    btn1: null,
-    btn2: null,
-  })
-
-  const handleClick = (e) => {
-    setAnchorState({ [e.target.name]: e.currentTarget })
-  }
-
-  const handleClose = (e) => {
-    setAnchorState({ [e.target.name]: null })
-  }
-
   //dialog
   const [visible, setVisible] = React.useState(false)
 
@@ -54,9 +42,7 @@ const IndexPage = () => {
                   p: { xs: 1, md: 2 },
                   bgcolor: '#1c2c42',
                   borderRadius: 5,
-                  '& .MuiButton-root': {
-                    minWidth: '100px',
-                  },
+
                   '& .MuiBox-root': {
                     display: 'flex',
                     alignItems: 'center',
@@ -64,82 +50,8 @@ const IndexPage = () => {
                   },
                 }}
               >
-                <Box>
-                  <img
-                    src="https://twopaws.io/token-icons/default.png"
-                    alt="img"
-                    width="30"
-                    height="30"
-                  />
-                  <Button
-                    id="basic-button-1"
-                    aria-controls={
-                      Boolean(anchorState.btn1) ? 'basic-menu-1' : undefined
-                    }
-                    aria-haspopup="true"
-                    aria-expanded={
-                      Boolean(anchorState.btn1) ? 'true' : undefined
-                    }
-                    onClick={handleClick}
-                    name="btn1"
-                  >
-                    Filter
-                    <ArrowDropDownSharpIcon />
-                  </Button>
-                  <Menu
-                    id="basic-menu-1"
-                    anchorEl={anchorState.btn1}
-                    open={Boolean(anchorState.btn1)}
-                    onClose={handleClose}
-                    MenuListProps={{
-                      'aria-labelledby': 'basic-button-1',
-                    }}
-                    elevation={0}
-                  >
-                    <MenuItem>Tokennomic</MenuItem>
-                    <MenuItem>Lender Order</MenuItem>
-                    <MenuItem>Borrower Order</MenuItem>
-                    <MenuItem>Rewarded Order</MenuItem>
-                  </Menu>
-                </Box>
-
-                <Box>
-                  <img
-                    src="https://twopaws.io/token-icons/default.png"
-                    alt="img"
-                    width="30"
-                    height="30"
-                  />
-                  <Button
-                    id="basic-button-2"
-                    aria-controls={
-                      Boolean(anchorState.btn2) ? 'basic-menu-2' : undefined
-                    }
-                    aria-haspopup="true"
-                    aria-expanded={
-                      Boolean(anchorState.btn2) ? 'true' : undefined
-                    }
-                    onClick={handleClick}
-                    name="btn2"
-                  >
-                    Filter
-                    <ArrowDropDownSharpIcon />
-                  </Button>
-                  <Menu
-                    id="basic-menu-2"
-                    anchorEl={anchorState.btn2}
-                    open={Boolean(anchorState.btn2)}
-                    onClose={handleClose}
-                    MenuListProps={{
-                      'aria-labelledby': 'basic-button-2',
-                    }}
-                    elevation={0}
-                  >
-                    <MenuItem>Ethereum</MenuItem>
-                    <MenuItem>Arbitrum</MenuItem>
-                    <MenuItem>Binance</MenuItem>
-                  </Menu>
-                </Box>
+                <Filter />
+                <Filter />
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>

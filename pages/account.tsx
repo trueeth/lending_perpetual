@@ -6,7 +6,7 @@ import Button from '@mui/material/Button'
 import { Container } from '@mui/material'
 import EnhancedTable from '../components/Styled/Table_account'
 
-import LoanDialog from '../components/Styled/SupplyDialog'
+import SupplyDialog from '../components/Styled/SupplyDialog'
 const IndexPage = () => {
   const [visible, setVisible] = React.useState(false)
 
@@ -126,7 +126,7 @@ const IndexPage = () => {
           <Divider sx={{ bgcolor: '#141e2f', p: '0.2px' }} />
           <EnhancedTable />
         </Box>
-        <LoanDialog open={visible} handleClose={() => setVisible(false)} />
+        <SupplyDialog open={visible} handleClose={() => setVisible(false)} />
       </Container>
     </>
   )
