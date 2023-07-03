@@ -1,15 +1,15 @@
-import { Box, TextField } from '@mui/material'
 import dayjs from 'dayjs'
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker'
+import { Box } from '@mui/material'
 
 const MobileDate = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer
-        components={['MobileDateTimePicker']}
+      <Box
+        // components={['MobileDateTimePicker']}
         sx={{
           '& .MuiInputBase-root': {
             py: 1,
@@ -31,10 +31,8 @@ const MobileDate = () => {
           },
         }}
       >
-        <DemoItem>
-          <MobileDateTimePicker defaultValue={dayjs('2022-04-17T15:30')} />
-        </DemoItem>
-      </DemoContainer>
+        <MobileDateTimePicker defaultValue={dayjs('2022-04-17T15:30')} />
+      </Box>
     </LocalizationProvider>
   )
 }

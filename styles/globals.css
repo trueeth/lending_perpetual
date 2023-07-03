@@ -19,22 +19,22 @@ body::-webkit-scrollbar {
   height: 20px;
 }
 .MuiTypography-root {
-  font-family: Square;
+  font-family: Square !important;
 }
 
 .MuiButton-root {
-  border:1px solid #454f5b;
+  border:1px solid #454f5b !important;
   border-radius: 0.5rem !important;
-  background-color: #203349;
+  background-color: #203349 !important;
   font-size:1rem;
-  color:#ececec;
+  color:#ececec !important;
   letter-spacing: 1px;
   padding: 0.5rem,1rem,0.5rem,1rem !important;
   text-transform: capitalize;
   /* margin:15px; */
   cursor: pointer;
   width:100%;
-  font-family: Square;
+  font-family: Square !important;
 }
 .MuiButton-root:hover{
   background-color: #182539 !important;
@@ -50,7 +50,7 @@ body::-webkit-scrollbar {
 
 .MuiMenu-root ul li{
   padding:0;
-  font-family: Square;
+  font-family: "Square" !important;
 }
 .MuiMenu-root ul li:hover{
   background-color: hsla(0,0%,100%,.15);

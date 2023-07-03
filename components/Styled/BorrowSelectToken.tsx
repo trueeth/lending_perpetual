@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 import * as React from 'react'
 import ArrowDropDownSharpIcon from '@mui/icons-material/ArrowDropDownSharp'
-
+import Filter from './Filter'
 const BorrowSelectToken = () => {
   const [anchorState, setAnchorState] = React.useState<any | null>({
     btn1: null,
@@ -61,36 +61,7 @@ const BorrowSelectToken = () => {
           borderRadius: '10px',
         }}
       >
-        <Box>
-          <Button
-            id="basic-button-1"
-            aria-controls={
-              Boolean(anchorState.btn1) ? 'basic-menu-1' : undefined
-            }
-            aria-haspopup="true"
-            aria-expanded={Boolean(anchorState.btn1) ? 'true' : undefined}
-            onClick={handleClick}
-            name="btn1"
-          >
-            Filter
-            <ArrowDropDownSharpIcon />
-          </Button>
-          <Menu
-            id="basic-menu-1"
-            anchorEl={anchorState.btn1}
-            open={Boolean(anchorState.btn1)}
-            onClose={handleCloseButton}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button-1',
-            }}
-            elevation={0}
-          >
-            <MenuItem>Tokennomic</MenuItem>
-            <MenuItem>Lender Order</MenuItem>
-            <MenuItem>Borrower Order</MenuItem>
-            <MenuItem>Rewarded Order</MenuItem>
-          </Menu>
-        </Box>
+        <Filter />
         <TextField
           sx={{
             width: '100px',
@@ -137,36 +108,7 @@ const BorrowSelectToken = () => {
           borderRadius: '10px',
         }}
       >
-        <Box>
-          <Button
-            id="basic-button-1"
-            aria-controls={
-              Boolean(anchorState.btn1) ? 'basic-menu-1' : undefined
-            }
-            aria-haspopup="true"
-            aria-expanded={Boolean(anchorState.btn1) ? 'true' : undefined}
-            onClick={handleClick}
-            name="btn1"
-          >
-            Filter
-            <ArrowDropDownSharpIcon />
-          </Button>
-          <Menu
-            id="basic-menu-1"
-            anchorEl={anchorState.btn1}
-            open={Boolean(anchorState.btn1)}
-            onClose={handleCloseButton}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button-1',
-            }}
-            elevation={0}
-          >
-            <MenuItem>Tokennomic</MenuItem>
-            <MenuItem>Lender Order</MenuItem>
-            <MenuItem>Borrower Order</MenuItem>
-            <MenuItem>Rewarded Order</MenuItem>
-          </Menu>
-        </Box>
+        <Filter />
         <TextField
           sx={{
             width: '100px',
