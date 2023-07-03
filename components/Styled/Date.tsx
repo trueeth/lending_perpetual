@@ -10,7 +10,7 @@ const minute = currentdate.getMinutes()
 const CustomDate = () => {
   return (
     <Box>
-         <Box
+      <Box
         sx={{
           border: '1px solid #454f5b',
           px: '10px',
@@ -47,26 +47,112 @@ const CustomDate = () => {
         >
           <Box>
             <Typography>year</Typography>
-            <TextField type="number" value={year} />
+            <TextField
+              type="number"
+              value={year}
+              InputProps={{
+                sx: {
+                  '&.MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                    '&:hover fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                  },
+                },
+              }}
+            />
           </Box>
           <Box>
             <Typography>Month</Typography>
-            <TextField value={month} />
+            <TextField
+              value={month}
+              InputProps={{
+                sx: {
+                  '&.MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                    '&:hover fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                  },
+                },
+              }}
+            />
           </Box>
           <Box>
             <Typography>Day</Typography>
-            <TextField value={day} />
+            <TextField
+              value={day}
+              InputProps={{
+                sx: {
+                  '&.MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                    '&:hover fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                  },
+                },
+              }}
+            />
           </Box>
           <Box>
             <Typography>hour</Typography>
-            <TextField value={hour} />
+            <TextField
+              value={hour}
+              InputProps={{
+                sx: {
+                  '&.MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                    '&:hover fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                  },
+                },
+              }}
+            />
           </Box>
           <Box>
             <Typography>minutes</Typography>
-            <TextField value={minute} />
+            <TextField
+              value={minute}
+              InputProps={{
+                sx: {
+                  '&.MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                    '&:hover fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#454f5b',
+                    },
+                  },
+                },
+              }}
+            />
           </Box>
         </Box>
-      </Box> 
+      </Box>
     </Box>
   )
 }

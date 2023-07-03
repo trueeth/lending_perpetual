@@ -204,11 +204,22 @@ const IndexPage = () => {
                     sx: {
                       borderRadius: '5px',
                       border: 'none',
-                      '&:hover fieldset': {
-                        border: 'none',
-                      },
-                      '&:focus-within fieldset': {
-                        boxShadow: '0 0 0 0.25rem rgba(13,110,253,.25)',
+                      // '&:hover fieldset': {
+                      //   border: 'none',
+                      // },
+                      // '&:focus-within fieldset': {
+                      //   boxShadow: '0 0 0 0.25rem rgba(13,110,253,.25)',
+                      // },
+                      '&.MuiOutlinedInput-root': {
+                        '& fieldset': {
+                          borderColor: '#454f5b',
+                        },
+                        '&:hover fieldset': {
+                          borderColor: '#454f5b',
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: '#454f5b',
+                        },
                       },
                     },
                   }}

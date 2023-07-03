@@ -31,7 +31,22 @@ const MobileDate = () => {
           },
         }}
       >
-        <MobileDateTimePicker defaultValue={dayjs('2022-04-17T15:30')} />
+        <MobileDateTimePicker
+          defaultValue={dayjs('2022-04-17T15:30')}
+          sx={{
+            '&.MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: '#454f5b',
+              },
+              '&:hover fieldset': {
+                borderColor: '#454f5b',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: '#454f5b',
+              },
+            },
+          }}
+        />
       </Box>
     </LocalizationProvider>
   )

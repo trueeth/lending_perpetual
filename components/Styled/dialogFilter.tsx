@@ -10,7 +10,7 @@ import {
 import { TokenList } from '../../constants/token'
 
 const DialogFilter = () => {
-  const [crypto, setCrypto] = React.useState('')
+  const [crypto, setCrypto] = React.useState('USDT')
 
   const handleChange = (event: SelectChangeEvent) => {
     setCrypto(event.target.value)
@@ -41,7 +41,6 @@ const DialogFilter = () => {
           },
           '& .MuiSelect-select': {
             p: 0,
-
             gap: '3px !important',
           },
         }}
@@ -49,19 +48,6 @@ const DialogFilter = () => {
           padding: '0px !important',
         }}
       >
-        <MenuItem value="">
-          <Box
-            sx={{
-              width: '100%',
-              justifyContent: 'center',
-              pl: 3,
-              gap: 1,
-              py: '5px',
-            }}
-          >
-            <Typography sx={{ m: '0px !important' }}>Filter</Typography>
-          </Box>
-        </MenuItem>
         {TokenList.map((item, index) => (
           <MenuItem value={item.token_name} key={index}>
             <Box
@@ -71,7 +57,7 @@ const DialogFilter = () => {
                 alignItems: 'center',
                 pl: 3,
                 gap: 1,
-                py: '5px',
+                py: 1,
               }}
             >
               <img

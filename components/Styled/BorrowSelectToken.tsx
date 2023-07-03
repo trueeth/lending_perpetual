@@ -58,6 +58,21 @@ const BorrowSelectToken = () => {
               ml: '2px',
             },
           }}
+          InputProps={{
+            sx: {
+              '&.MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#454f5b',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#454f5b',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#454f5b',
+                },
+              },
+            },
+          }}
         />
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', px: 2 }}>
@@ -103,6 +118,21 @@ const BorrowSelectToken = () => {
               fontSize: '20px',
               height: '7px',
               ml: '2px',
+            },
+          }}
+          InputProps={{
+            sx: {
+              '&.MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#454f5b',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#454f5b',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#454f5b',
+                },
+              },
             },
           }}
         />
