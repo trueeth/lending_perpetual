@@ -27,11 +27,11 @@ function createData(loan: number, collateral: number, fee: number): Data {
 
 const rows = [
   createData(1000, 1250, 0),
+  createData(1000, 1500, 5),
+  createData(600, 800, 4),
   createData(1000, 1250, 0),
-  createData(1000, 1250, 0),
-  createData(1000, 1250, 0),
-  createData(1000, 1250, 0),
-  createData(1000, 1250, 0),
+  createData(800, 1000, 0),
+  createData(1100, 1400, 0),
 ]
 
 const useStyles = makeStyles({

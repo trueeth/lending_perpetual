@@ -1,26 +1,16 @@
 import {
   Box,
-  Button,
-  Menu,
+  FormControl,
   MenuItem,
+  Select,
+  SelectChangeEvent,
   TextField,
   Typography,
 } from '@mui/material'
 import * as React from 'react'
-import ArrowDropDownSharpIcon from '@mui/icons-material/ArrowDropDownSharp'
-import Filter from './Filter'
-const SupplySelectToken = () => {
-  const [anchorState, setAnchorState] = React.useState<any | null>({
-    btn1: null,
-    btn2: null,
-  })
-  const handleClick = (e) => {
-    setAnchorState({ [e.target.name]: e.currentTarget })
-  }
+import DialogFilter from './dialogFilter'
 
-  const handleCloseButton = (e) => {
-    setAnchorState({ [e.target.name]: null })
-  }
+const SupplySelectToken = () => {
   return (
     <Box
       sx={{
@@ -62,7 +52,7 @@ const SupplySelectToken = () => {
           borderRadius: '10px',
         }}
       >
-        <Filter />
+        <DialogFilter />
         <TextField
           sx={{
             width: '100px',
@@ -109,7 +99,7 @@ const SupplySelectToken = () => {
           borderRadius: '10px',
         }}
       >
-        <Filter />
+        <DialogFilter />
         <TextField
           sx={{
             minwidth: '100px',

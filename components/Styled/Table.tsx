@@ -36,10 +36,10 @@ function createData(
 
 const rows = [
   createData(1000, 1250, 0, '12 days', 2800),
-  createData(1000, 1250, 0, '12 days', 2800),
-  createData(1000, 1250, 0, '10 days', 2800),
+  createData(1000, 1500, 0, '12 days', 3000),
+  createData(800, 1000, 4, '10 days', 2100),
   createData(1000, 1250, 0, 'closed', 0),
-  createData(1000, 1250, 0, 'closed', 0),
+  createData(600, 800, 0, 'closed', 0),
   createData(1000, 1250, 0, 'closed', 0),
 ]
 

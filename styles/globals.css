@@ -25,16 +25,19 @@ body::-webkit-scrollbar {
 .MuiButton-root {
   border:1px solid #454f5b !important;
   border-radius: 0.5rem !important;
-  background-color: #203349 !important;
+  background-color: #203349;
   font-size:1rem;
   color:#ececec !important;
   letter-spacing: 1px;
   padding: 0.5rem,1rem,0.5rem,1rem !important;
-  text-transform: capitalize;
+  text-transform: capitalize !important;
   /* margin:15px; */
   cursor: pointer;
   width:100%;
   font-family: Square !important;
+}
+.MuiButton-root svg {
+  pointer-events: none;
 }
 .MuiButton-root:hover{
   background-color: #182539 !important;

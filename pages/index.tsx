@@ -9,7 +9,7 @@ import { Container } from '@mui/material'
 import EnhancedTable from '../components/Styled/Table'
 import SupplyDialog from '../components/Styled/SupplyDialog'
 import CustomCheckBox from '../components/Styled/CheckBox'
-import Filter from '../components/Styled/Filter'
+import Filter from '../components/Styled/ordersFilter'
 
 const IndexPage = () => {
   //dialog
@@ -50,8 +50,37 @@ const IndexPage = () => {
                   },
                 }}
               >
-                <Filter />
-                <Filter />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 3,
+                  }}
+                >
+                  <img
+                    src="https://twopaws.io/token-icons/default.png"
+                    alt="img"
+                    width="30"
+                    height="30"
+                  />
+                  <Filter />
+                </Box>
+
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 3,
+                  }}
+                >
+                  <img
+                    src="https://twopaws.io/token-icons/default.png"
+                    alt="img"
+                    width="30"
+                    height="30"
+                  />
+                  <Filter />
+                </Box>
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>
