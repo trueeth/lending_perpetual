@@ -22,6 +22,7 @@ const config = createConfig(
 )
 
 function MyApp({ Component, pageProps }: AppProps) {
+  console.log(pageProps)
   return (
     <Layout title="Lending and Borrowing">
       <WagmiConfig config={config}>
