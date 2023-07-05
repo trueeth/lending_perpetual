@@ -1,23 +1,10 @@
 import Link from 'next/link'
 //import Layout from '../components/Layout'
-import {
-  Box,
-  Divider,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Grid,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Box, Divider, Grid, TextField, Typography } from '@mui/material'
 import * as React from 'react'
 import Button from '@mui/material/Button'
 import { Container } from '@mui/material'
-
-import SupplyDialog from '../components/Styled/SupplyDialog'
+import LoanDialog from '../components/Styled/LoanDialog'
 
 const IndexPage = () => {
   const [visible, setVisible] = React.useState(false)
@@ -185,6 +172,7 @@ const IndexPage = () => {
                 }}
               >
                 <TextField
+                  type="number"
                   sx={{
                     width: '85%',
                     bgcolor: '#182539',
@@ -319,7 +307,7 @@ const IndexPage = () => {
             </Box>
           </Box>
         </Box>
-        <SupplyDialog open={visible} handleClose={() => setVisible(false)} />
+        <LoanDialog open={visible} handleClose={() => setVisible(false)} />
       </Container>
     </>
   )

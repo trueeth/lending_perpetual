@@ -1,13 +1,10 @@
 import Link from 'next/link'
-//import Layout from '../components/Layout'
 import { Box, Divider, FormControlLabel, Grid, Typography } from '@mui/material'
 import * as React from 'react'
-import Menu, { MenuProps } from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 import { Container } from '@mui/material'
 import EnhancedTable from '../components/Styled/Table'
-import SupplyDialog from '../components/Styled/SupplyDialog'
+import LoanDialog from '../components/Styled/LoanDialog'
 import CustomCheckBox from '../components/Styled/CheckBox'
 import Filter from '../components/Styled/ordersFilter'
 
@@ -37,8 +34,10 @@ const IndexPage = () => {
               <Box
                 sx={{
                   display: 'flex',
-                  justifyContent: 'space-around',
+                  justifyContent: 'center',
                   alignItems: 'center',
+                  gap: 4,
+                  flexWrap: 'wrap',
                   p: { xs: 1, md: 2 },
                   bgcolor: '#1c2c42',
                   borderRadius: 5,
@@ -184,7 +183,7 @@ const IndexPage = () => {
           <Divider sx={{ bgcolor: '#141e2f', p: '0.2px' }} />
           <EnhancedTable />
         </Box>
-        <SupplyDialog open={visible} handleClose={() => setVisible(false)} />
+        <LoanDialog open={visible} handleClose={() => setVisible(false)} />
       </Container>
     </>
   )

@@ -15,8 +15,8 @@ interface IOpenProps {
   handleClose: () => void
 }
 
-export default function SupplyDialog({ open, handleClose }: IOpenProps) {
-  const isMobile = useMediaQuery('(max-width:768px)')
+export default function LoanDialog({ open, handleClose }: IOpenProps) {
+  // const isMobile = useMediaQuery('(max-width:768px)')
   const [view, setview] = useState('supply')
   return (
     <Dialog
@@ -27,7 +27,7 @@ export default function SupplyDialog({ open, handleClose }: IOpenProps) {
           backgroundColor: '#1f304a',
           boxShadow: 'none',
           borderRadius: '15px',
-          paddingInline: '15px',
+          paddingInline: '20px',
           color: '#ececec',
         },
       }}
@@ -89,11 +89,15 @@ export default function SupplyDialog({ open, handleClose }: IOpenProps) {
         <Typography ml={2} mb={0.5}>
           The repayment period for this credit starts on:
         </Typography>
-        {isMobile ? <MobileDate /> : <CustomDate />}
+        <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+          <CustomDate />
+        </Box>
         <Typography ml={2} mb={0.5}>
           Ends on:
         </Typography>
-        {isMobile ? <MobileDate /> : <CustomDate />}
+        <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+          <CustomDate />
+        </Box>
       </Box>
 
       {view === 'supply' ? <SupplyCalculate /> : <BorrowCalculate />}

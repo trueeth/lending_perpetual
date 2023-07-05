@@ -119,11 +119,24 @@ const Header = () => {
                   'aria-labelledby': 'basic-button-1',
                 }}
                 elevation={0}
+                sx={{
+                  '& .MuiMenuItem-root': {
+                    pl: 2,
+                  },
+                }}
               >
-                <MenuItem>Tokennomic</MenuItem>
-                <MenuItem>Lender Order</MenuItem>
-                <MenuItem>Borrower Order</MenuItem>
-                <MenuItem>Rewarded Order</MenuItem>
+                <MenuItem>
+                  <Typography>Tokennomic</Typography>
+                </MenuItem>
+                <MenuItem>
+                  <Typography>Lender Order</Typography>
+                </MenuItem>
+                <MenuItem>
+                  <Typography>Borrower Order</Typography>
+                </MenuItem>
+                <MenuItem>
+                  <Typography>Rewarded Order</Typography>
+                </MenuItem>
               </Menu>
             </Box>
             <Box>

@@ -45,7 +45,7 @@ const SupplySelectToken = () => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: 4,
+          justifyContent: 'space-evenly',
           border: '1px solid #454f5b',
           px: '10px',
           py: 1,
@@ -54,6 +54,7 @@ const SupplySelectToken = () => {
       >
         <DialogFilter />
         <TextField
+          type="number"
           sx={{
             width: '100px',
             bgcolor: '#182539',
@@ -84,6 +85,7 @@ const SupplySelectToken = () => {
             },
           }}
         />
+        <Box sx={{ width: '8%' }}></Box>
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', px: 2 }}>
         <Typography>Collateral Amount</Typography>
@@ -107,7 +109,7 @@ const SupplySelectToken = () => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: 4,
+          justifyContent: 'space-evenly',
           border: '1px solid #454f5b',
           px: '10px',
           py: 1,
@@ -116,6 +118,7 @@ const SupplySelectToken = () => {
       >
         <DialogFilter />
         <TextField
+          type="number"
           sx={{
             minwidth: '100px',
             maxWidth: '100px',
@@ -151,8 +154,8 @@ const SupplySelectToken = () => {
           sx={{
             border: '2px solid rgb(0, 247, 167)',
             borderRadius: '50%',
-            width: '40px',
-            height: '40px',
+            width: { xs: '7vw', md: '40px' },
+            height: { xs: '7vw', md: '40px' },
             mr: 0,
           }}
         >

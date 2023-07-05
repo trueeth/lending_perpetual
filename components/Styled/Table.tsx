@@ -167,7 +167,6 @@ function StyledTable() {
                 </TableCell>
                 <TableCell>{row.duration}</TableCell>
                 <TableCell>
-                  {' '}
                   <Box
                     sx={{
                       display: 'flex',

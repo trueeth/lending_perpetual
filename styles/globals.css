@@ -54,6 +54,7 @@ body::-webkit-scrollbar {
 .MuiMenu-root ul li{
   padding:0;
   font-family: "Square" !important;
+  
 }
 .MuiMenu-root ul li:hover{
   background-color: hsla(0,0%,100%,.15);
@@ -63,9 +64,10 @@ body::-webkit-scrollbar {
   background-color: #0d6efd;
   color:#fff;
 }
-.MuiMenuItem-root {
+/* .MuiMenuItem-root {
+  width:100% !important;
   justify-content: center;
-}
+} */
 * {
   box-sizing: border-box;
 }

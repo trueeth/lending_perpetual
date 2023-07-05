@@ -57,6 +57,7 @@ const Filter = () => {
               width: '100%',
               justifyContent: 'center',
               pl: 3,
+              py: 0.4,
             }}
           >
             <Typography sx={{ letterSpacing: '2px' }}>Filter</Typography>

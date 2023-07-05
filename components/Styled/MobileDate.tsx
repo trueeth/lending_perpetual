@@ -4,8 +4,25 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker'
 import { Box } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+
+const useStyles = makeStyles({
+  root: {
+    '& .MuiDialog-root': {
+      '& .MuiButton-root': {
+        backgorundColor: '#203349 !important',
+        color: '#ececec !important',
+      },
+      '& .MuiPickersToolbarText-root': {
+        color: '#ececec important',
+      },
+    },
+  },
+})
 
 const MobileDate = () => {
+  const classes = useStyles()
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box
@@ -33,19 +50,7 @@ const MobileDate = () => {
       >
         <MobileDateTimePicker
           defaultValue={dayjs('2022-04-17T15:30')}
-          sx={{
-            '&.MuiOutlinedInput-root': {
-              '& fieldset': {
-                borderColor: '#454f5b',
-              },
-              '&:hover fieldset': {
-                borderColor: '#454f5b',
-              },
-              '&.Mui-focused fieldset': {
-                borderColor: '#454f5b',
-              },
-            },
-          }}
+          className={classes.root}
         />
       </Box>
     </LocalizationProvider>

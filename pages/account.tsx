@@ -1,12 +1,11 @@
 import Link from 'next/link'
-//import Layout from '../components/Layout'
 import { Box, Divider, Grid, Typography } from '@mui/material'
 import * as React from 'react'
 import Button from '@mui/material/Button'
 import { Container } from '@mui/material'
 import EnhancedTable from '../components/Styled/Table_account'
+import LoanDialog from '../components/Styled/LoanDialog'
 
-import SupplyDialog from '../components/Styled/SupplyDialog'
 const IndexPage = () => {
   const [visible, setVisible] = React.useState(false)
 
@@ -126,7 +125,7 @@ const IndexPage = () => {
           <Divider sx={{ bgcolor: '#141e2f', p: '0.2px' }} />
           <EnhancedTable />
         </Box>
-        <SupplyDialog open={visible} handleClose={() => setVisible(false)} />
+        <LoanDialog open={visible} handleClose={() => setVisible(false)} />
       </Container>
     </>
   )

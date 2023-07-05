@@ -35,7 +35,7 @@ const BorrowSelectToken = () => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: 4,
+          justifyContent: 'space-evenly',
           border: '1px solid #454f5b',
           px: '10px',
           py: 1,
@@ -44,6 +44,7 @@ const BorrowSelectToken = () => {
       >
         <DialogFilter />
         <TextField
+          type="number"
           sx={{
             width: '100px',
             bgcolor: '#182539',
@@ -97,7 +98,7 @@ const BorrowSelectToken = () => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: 4,
+          justifyContent: 'space-evenly',
           border: '1px solid #454f5b',
           px: '10px',
           py: 1,
@@ -106,6 +107,7 @@ const BorrowSelectToken = () => {
       >
         <DialogFilter />
         <TextField
+          type="number"
           sx={{
             width: '100px',
             bgcolor: '#182539',
