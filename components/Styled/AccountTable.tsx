@@ -10,6 +10,7 @@ import {
   Box,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import Image from 'next/image'
 
 interface Data {
   loan: number
@@ -149,7 +150,7 @@ function StyledTable() {
                       gap: 2,
                     }}
                   >
-                    <img
+                    <Image
                       src="https://arbiscan.io/token/images/tether_32.png"
                       alt="img"
                       width="30"
@@ -167,7 +168,7 @@ function StyledTable() {
                       gap: 2,
                     }}
                   >
-                    <img
+                    <Image
                       src="https://arbiscan.io/token/images/centre-usdc_28.png"
                       alt="img"
                       width="30"

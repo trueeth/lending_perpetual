@@ -5,6 +5,7 @@ import * as React from 'react'
 import Button from '@mui/material/Button'
 import { Container } from '@mui/material'
 import LoanDialog from '../components/Styled/LoanDialog'
+import Image from 'next/image'
 
 const IndexPage = () => {
   const [visible, setVisible] = React.useState(false)
@@ -12,6 +13,7 @@ const IndexPage = () => {
   const handleCloseDialog = () => {
     setVisible(false)
   }
+
   return (
     <>
       <Container
@@ -44,32 +46,33 @@ const IndexPage = () => {
                 }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <img
+                  <Image
                     src="https://twopaws.app/static/media/fuel.95a53fd17843648c51b0d000461e4216.svg"
                     alt="img"
-                    width="30"
-                    height="30"
+                    width={30}
+                    height={30}
                   />
+
                   <Typography>15.63</Typography>
                   <Typography>Gwei</Typography>
                 </Box>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <img
+                  <Image
                     src="https://cdn.redstone.finance/symbols/eth.svg"
                     alt="img"
-                    width="30"
-                    height="30"
+                    width={30}
+                    height={30}
                   />
                   <Typography>15.63</Typography>
                   <Typography>Gwei</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <img
+                  <Image
                     src="https://twopaws.app/static/media/TWOPAW.75a7c20b8a536d2f3310900c94cf2bbf.svg"
                     alt="img"
-                    width="30"
-                    height="30"
+                    width={30}
+                    height={30}
                   />
                   <Typography>15.63</Typography>
                   <Typography>Gwei</Typography>
@@ -192,12 +195,6 @@ const IndexPage = () => {
                     sx: {
                       borderRadius: '5px',
                       border: 'none',
-                      // '&:hover fieldset': {
-                      //   border: 'none',
-                      // },
-                      // '&:focus-within fieldset': {
-                      //   boxShadow: '0 0 0 0.25rem rgba(13,110,253,.25)',
-                      // },
                       '&.MuiOutlinedInput-root': {
                         '& fieldset': {
                           borderColor: '#454f5b',
@@ -263,11 +260,11 @@ const IndexPage = () => {
               >
                 <Typography sx={{ color: '#9597a1' }}>Buy Price</Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <img
+                  <Image
                     src="https://twopaws.app/static/media/TWOPAW.75a7c20b8a536d2f3310900c94cf2bbf.svg"
                     alt="img"
-                    width="30"
-                    height="30"
+                    width={30}
+                    height={30}
                   />
                   <Typography>40000</Typography>
                   <Typography>TWOPAW</Typography>
@@ -278,11 +275,11 @@ const IndexPage = () => {
               >
                 <Typography sx={{ color: '#9597a1' }}>Sell Price</Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <img
+                  <Image
                     src="https://twopaws.app/static/media/TWOPAW.75a7c20b8a536d2f3310900c94cf2bbf.svg"
                     alt="img"
-                    width="30"
-                    height="30"
+                    width={30}
+                    height={30}
                   />
                   <Typography>29999</Typography>
                   <Typography>TWOPAW</Typography>

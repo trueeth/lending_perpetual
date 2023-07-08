@@ -9,6 +9,7 @@ import {
   Typography,
   Box,
 } from '@mui/material'
+import Image from 'next/image'
 
 interface Data {
   loan: number
@@ -112,12 +113,12 @@ function StyledTable() {
                     fontSize: '18px',
                     bgcolor: '#1c2c44',
                   },
-                  '.MuiTableCell-root:first-child': {
+                  '.MuiTableCell-root:first-of-type': {
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',
                     borderLeft: '1px solid #383944',
                   },
-                  '.MuiTableCell-root:last-child': {
+                  '.MuiTableCell-root:last-of-type': {
                     borderTopRightRadius: '10px',
                     borderBottomRightRadius: '10px',
                     borderRight: '1px solid #383944',
@@ -133,11 +134,11 @@ function StyledTable() {
                       gap: 2,
                     }}
                   >
-                    <img
+                    <Image
                       src="https://arbiscan.io/token/images/tether_32.png"
                       alt="img"
-                      width="30"
-                      height="30"
+                      width={30}
+                      height={30}
                     />
                     <Typography>{row.loan} USDT</Typography>
                   </Box>
@@ -151,11 +152,11 @@ function StyledTable() {
                       gap: 2,
                     }}
                   >
-                    <img
+                    <Image
                       src="https://arbiscan.io/token/images/centre-usdc_28.png"
                       alt="img"
-                      width="30"
-                      height="30"
+                      width={30}
+                      height={30}
                     />
                     <Typography>{row.collateral} USDC</Typography>
                   </Box>
@@ -175,11 +176,11 @@ function StyledTable() {
                       gap: 2,
                     }}
                   >
-                    <img
+                    <Image
                       src="https://twopaws.app/static/media/TWOPAW.75a7c20b8a536d2f3310900c94cf2bbf.svg"
                       alt="img"
-                      width="30"
-                      height="30"
+                      width={30}
+                      height={30}
                     />
                     <Typography sx={{ color: 'rgb(0, 247, 167)' }}>
                       {row.reward}

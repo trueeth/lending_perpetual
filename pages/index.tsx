@@ -7,6 +7,7 @@ import EnhancedTable from '../components/Styled/Table'
 import LoanDialog from '../components/Styled/LoanDialog'
 import CustomCheckBox from '../components/Styled/CheckBox'
 import Filter from '../components/Styled/ordersFilter'
+import Image from 'next/image'
 
 const IndexPage = () => {
   //dialog
@@ -56,11 +57,11 @@ const IndexPage = () => {
                     gap: 3,
                   }}
                 >
-                  <img
+                  <Image
                     src="https://twopaws.io/token-icons/default.png"
                     alt="img"
-                    width="30"
-                    height="30"
+                    width={30}
+                    height={30}
                   />
                   <Filter />
                 </Box>
@@ -72,11 +73,11 @@ const IndexPage = () => {
                     gap: 3,
                   }}
                 >
-                  <img
+                  <Image
                     src="https://twopaws.io/token-icons/default.png"
                     alt="img"
-                    width="30"
-                    height="30"
+                    width={30}
+                    height={30}
                   />
                   <Filter />
                 </Box>

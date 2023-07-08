@@ -7,8 +7,6 @@ import SupplyCalculate from './SupplyCalculate'
 import { useState } from 'react'
 import BorrowSelectToken from './BorrowSelectToken'
 import BorrowCalculate from './BorrowCalculate'
-import { useMediaQuery } from '@mui/material'
-import MobileDate from './MobileDate'
 
 interface IOpenProps {
   open: boolean

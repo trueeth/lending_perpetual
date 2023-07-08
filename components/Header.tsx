@@ -5,10 +5,10 @@ import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 import ArrowDropDownSharpIcon from '@mui/icons-material/ArrowDropDownSharp'
 import { useRouter } from 'next/router'
-// import { ConnectKitButton } from 'connectkit'
+import { ConnectKitButton } from 'connectkit'
+import Image from 'next/image'
 const Header = () => {
   const router = useRouter()
-  console.log(router.pathname)
   const [anchorState, setAnchorState] = React.useState<any | null>({
     btn1: null,
     btn2: null,
@@ -50,25 +50,19 @@ const Header = () => {
           >
             <Box sx={{ display: 'flex' }}>
               <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                <img
+                <Image
                   src="https://twopaws.app/static/media/TwoPawsText.89307c3bce199daeedd1811f8d446a33.svg"
                   alt="logoText"
-                  style={{
-                    width: '100px',
-                    height: '60px',
-                    cursor: 'pointer',
-                  }}
+                  width={100}
+                  height={60}
                 />
               </Box>
               <Box>
-                <img
+                <Image
                   src="https://twopaws.app/static/media/twoPaws.1e6aa9782eb237ce91ba260a6bb39f22.svg"
                   alt="logo"
-                  style={{
-                    width: '100px',
-                    height: '60px',
-                    cursor: 'pointer',
-                  }}
+                  width={100}
+                  height={60}
                 />
               </Box>
             </Box>
@@ -153,7 +147,7 @@ const Header = () => {
                 Avalanche
               </Button>
             </Box>
-            {/* <ConnectKitButton /> */}
+            <ConnectKitButton />
           </Box>
         </Box>
       </Toolbar>

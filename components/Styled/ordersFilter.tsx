@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@mui/material'
 import { TokenList } from '../../constants/token'
+import Image from 'next/image'
 
 const Filter = () => {
   const [crypto, setCrypto] = React.useState('')
@@ -75,12 +76,9 @@ const Filter = () => {
                 gap: '6px !important',
               }}
             >
-              <img
-                style={{
-                  height: '24px',
-                  width: '24px',
-                  borderRadius: '12px',
-                }}
+              <Image
+                width={24}
+                height={24}
                 src={item.token_logo}
                 loading="lazy"
                 alt="USDT logo"

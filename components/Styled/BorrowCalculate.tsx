@@ -1,5 +1,6 @@
 import { Box, FormControlLabel, Typography } from '@mui/material'
 import CustomCheckBox from './CheckBox'
+import Image from 'next/image'
 
 const BorrowCalculate = () => {
   return (
@@ -30,7 +31,7 @@ const BorrowCalculate = () => {
         <Typography>Lender Fee</Typography>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography>0% (0 USDT)</Typography>
-          <img
+          <Image
             src="https://twopaws.app/static/media/edit.91a05fa3ed28fcfa16476bf11192ea45.svg"
             alt="edit"
             width="22"
@@ -40,7 +41,7 @@ const BorrowCalculate = () => {
         </Box>
       </Box>
       <Box>
-        <Typography>You'll Get</Typography>
+        <Typography>You will Get</Typography>
         <Typography>NaN USDT</Typography>
       </Box>
     </Box>

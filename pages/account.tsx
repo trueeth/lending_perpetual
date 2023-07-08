@@ -1,13 +1,14 @@
 import Link from 'next/link'
 import { Box, Divider, Grid, Typography } from '@mui/material'
-import * as React from 'react'
+import { useState } from 'react'
 import Button from '@mui/material/Button'
 import { Container } from '@mui/material'
-import EnhancedTable from '../components/Styled/Table_account'
+import EnhancedTable from '../components/Styled/AccountTable'
 import LoanDialog from '../components/Styled/LoanDialog'
+import Image from 'next/image'
 
 const IndexPage = () => {
-  const [visible, setVisible] = React.useState(false)
+  const [visible, setVisible] = useState(false)
 
   const handleCloseDialog = () => {
     setVisible(false)
@@ -44,32 +45,32 @@ const IndexPage = () => {
                 }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <img
+                  <Image
                     src="https://twopaws.app/static/media/fuel.95a53fd17843648c51b0d000461e4216.svg"
                     alt="img"
-                    width="30"
-                    height="30"
+                    width={30}
+                    height={30}
                   />
                   <Typography>15.63</Typography>
                   <Typography>Gwei</Typography>
                 </Box>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <img
+                  <Image
                     src="https://cdn.redstone.finance/symbols/eth.svg"
                     alt="img"
-                    width="30"
-                    height="30"
+                    width={30}
+                    height={30}
                   />
                   <Typography>15.63</Typography>
                   <Typography>Gwei</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <img
+                  <Image
                     src="https://twopaws.app/static/media/TWOPAW.75a7c20b8a536d2f3310900c94cf2bbf.svg"
                     alt="img"
-                    width="30"
-                    height="30"
+                    width={30}
+                    height={30}
                   />
                   <Typography>15.63</Typography>
                   <Typography>Gwei</Typography>

@@ -1,36 +1,30 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import Layout from '../components/Layout'
 
+import Layout from '../components/Layout'
 import { WagmiConfig, createConfig } from 'wagmi'
+import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains'
 import { ConnectKitProvider, getDefaultConfig } from 'connectkit'
 
 const config = createConfig(
   getDefaultConfig({
-    // Required API Keys
-    alchemyId: process.env.ALCHEMY_ID, // or infuraId
-    walletConnectProjectId: process.env.WALLETCONNECT_PROJECT_ID,
-
-    // Required
-    appName: 'Your App Name',
-
-    // Optional
-    appDescription: 'Your App Description',
-    appUrl: 'https://family.co', // your app's url
-    appIcon: 'https://family.co/logo.png', // your app's icon, no bigger than 1024x1024px (max. 1MB)
+    appName: 'ConnectKit Next.js demo',
+    //infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
+    //alchemyId:  process.env.NEXT_PUBLIC_ALCHEMY_ID,
+    chains: [mainnet, polygon, optimism, arbitrum],
+    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
   })
 )
 
 function MyApp({ Component, pageProps }: AppProps) {
-  console.log('This is my App')
   return (
-    <Layout title="Lending and Borrowing">
-      <WagmiConfig config={config}>
-        <ConnectKitProvider>
+    <WagmiConfig config={config}>
+      <ConnectKitProvider>
+        <Layout title="Lending and Borrowing">
           <Component {...pageProps} />
-        </ConnectKitProvider>
-      </WagmiConfig>
-    </Layout>
+        </Layout>
+      </ConnectKitProvider>
+    </WagmiConfig>
   )
 }
 
