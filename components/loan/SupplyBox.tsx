@@ -13,6 +13,7 @@ import { getTokenNameFromAddress } from 'utils/token'
 
 import { useTokenBalance } from 'hooks/useTokenBalance'
 import { trim } from 'utils/trim'
+import { OrderType } from 'interfaces'
 
 const SupplyBox = () => {
   const dispatch = useDispatch()
@@ -66,7 +67,7 @@ const SupplyBox = () => {
           borderRadius: '10px',
         }}
       >
-        <TokenSelector orderType="supply" tokenType="loan" />
+        <TokenSelector orderType={OrderType.SUPPLY} tokenType="loan" />
         <StyledTextField
           value={actionState.supply.loanAmount}
           onChange={(e) => {
@@ -104,11 +105,7 @@ const SupplyBox = () => {
           borderRadius: '10px',
         }}
       >
-        <TokenSelector
-          orderType="supply"
-          tokenType="collateral"
-          initial="AVAX"
-        />
+        <TokenSelector orderType={OrderType.SUPPLY} tokenType="collateral" />
         <StyledTextField
           value={actionState.supply.collateralAmount}
           onChange={(e) => {

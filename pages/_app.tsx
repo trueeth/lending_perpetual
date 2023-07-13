@@ -10,7 +10,7 @@ function MyApp(props: AppProps<{ initialReduxState: any }>) {
 
   return (
     <Providers store={store}>
-      <Layout title="Lending and Borrowing">
+      <Layout title="Lending & Borrowing">
         <Component {...pageProps} />
       </Layout>
     </Providers>

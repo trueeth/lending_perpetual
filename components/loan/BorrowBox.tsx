@@ -10,11 +10,16 @@ import {
   setBorrowLoanAmount,
 } from 'store/slices/action'
 import { getTokenNameFromAddress } from 'utils/token'
+import { OrderType } from 'interfaces'
+import { useTokenBalance } from 'hooks/useTokenBalance'
+import { trim } from 'utils/trim'
 const BorrowBox = () => {
   const dispatch = useDispatch()
   const actionState = useSelector<IReduxState, IActionSlice>(
     (state) => state.action
   )
+
+  const balance = useTokenBalance(actionState.borrow.collateralToken)
   return (
     <Box
       sx={{
@@ -39,9 +44,10 @@ const BorrowBox = () => {
             },
           }}
         >
-          <Typography>Balance:</Typography>
+          <Typography>Balance: </Typography>
           <Typography>
-            0 {getTokenNameFromAddress(actionState.borrow.collateralToken)}
+            {trim(Number(balance.data?.formatted ?? '0'))}{' '}
+            {getTokenNameFromAddress(actionState.borrow.collateralToken)}
           </Typography>
           <Typography sx={{ color: '#3c63d7 !important' }}>Max</Typography>
         </Box>
@@ -57,11 +63,7 @@ const BorrowBox = () => {
           borderRadius: '10px',
         }}
       >
-        <TokenSelector
-          orderType="borrow"
-          tokenType="collateral"
-          initial="AVAX"
-        />
+        <TokenSelector orderType={OrderType.BORROW} tokenType="collateral" />
         <StyledTextField
           value={actionState.borrow.collateralAmount}
           onChange={(e) => {
@@ -102,7 +104,7 @@ const BorrowBox = () => {
           borderRadius: '10px',
         }}
       >
-        <TokenSelector orderType="borrow" tokenType="loan" />
+        <TokenSelector orderType={OrderType.BORROW} tokenType="loan" />
         <StyledTextField
           value={actionState.borrow.loanAmount}
           onChange={(e) => {

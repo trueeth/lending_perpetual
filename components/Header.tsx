@@ -3,7 +3,7 @@ import * as React from 'react'
 import Button from '@mui/material/Button'
 import { useRouter } from 'next/router'
 import { ConnectKitButton } from 'connectkit'
-import Image from 'next/image'
+
 const Header = () => {
   const router = useRouter()
   const [anchorState, setAnchorState] = React.useState<any | null>({
@@ -26,7 +26,7 @@ const Header = () => {
         backgroundImage: 'linear-gradient(90deg,#243b55,#182539)! important',
       }}
     >
-      <Toolbar disableGutters variant="dense" sx={{ p: 2 }}>
+      <Toolbar disableGutters variant="dense" sx={{ p: 3, mt: 2 }}>
         <Box
           sx={{
             width: '100%',
@@ -45,7 +45,7 @@ const Header = () => {
               alignItems: 'center',
             }}
           >
-            <Box sx={{ display: 'flex' }}>
+            {/* <Box sx={{ display: 'flex' }}>
               <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                 <Image
                   src="https://twopaws.app/static/media/TwoPawsText.89307c3bce199daeedd1811f8d446a33.svg"
@@ -62,7 +62,7 @@ const Header = () => {
                   height={60}
                 />
               </Box>
-            </Box>
+            </Box> */}
             <Box sx={{ flexGrow: 1 }}></Box>
           </Box>
           <Box>

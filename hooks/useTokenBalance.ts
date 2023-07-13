@@ -4,13 +4,12 @@ import { useAccount, useBalance } from 'wagmi'
 
 export const useTokenBalance = (token: Address) => {
   const { address: account } = useAccount()
-  const nativeBalance = useBalance({
+  const tokenAddr = (isNative(token) ? '' : token) as Address
+
+  const balance = useBalance({
     address: account,
-  })
-  const tokenBalance = useBalance({
-    address: account,
-    token,
+    token: tokenAddr,
   })
 
-  return isNative(token) ? nativeBalance : tokenBalance
+  return balance
 }

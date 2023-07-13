@@ -3,40 +3,53 @@ import { Box, FormControl, MenuItem, Select, Typography } from '@mui/material'
 import { TokenList } from '../../constants/token'
 import Image from 'next/image'
 import {
+  IActionSlice,
   setBorrowCollateralToken,
   setBorrowLoanToken,
   setSupCollateralToken,
   setSupLoanToken,
 } from 'store/slices/action'
 import { Address } from 'viem'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { IReduxState } from 'store/store'
+import { OrderType } from 'interfaces'
+import { getTokenNameFromAddress } from 'utils/token'
 
 const TokenSelector = ({
   orderType,
   tokenType,
-  initial,
 }: {
-  orderType: string
+  orderType: OrderType
   tokenType: string
-  initial?: string
 }) => {
   const dispatch = useDispatch()
-  const [token, setToken] = React.useState(initial ?? 'USDC')
+  const actionState = useSelector<IReduxState, IActionSlice>(
+    (state) => state.action
+  )
+  const init =
+    orderType === OrderType.SUPPLY && tokenType === 'loan'
+      ? actionState.supply.loanToken
+      : orderType === OrderType.SUPPLY && tokenType === 'collateral'
+      ? actionState.supply.collateralToken
+      : orderType === OrderType.BORROW && tokenType === 'loan'
+      ? actionState.borrow.loanToken
+      : actionState.borrow.collateralToken
+  const [token, setToken] = React.useState(getTokenNameFromAddress(init))
 
   const handleChange = (e) => {
     setToken(e.target.value as string)
     const tokenMeta = TokenList.find(
       (element) => element.name === (e.target.value as string)
     )
-    if (orderType === 'supply' && tokenType === 'loan') {
+    if (orderType === OrderType.SUPPLY && tokenType === 'loan') {
       dispatch(setSupLoanToken({ loanToken: tokenMeta.address as Address }))
-    } else if (orderType === 'supply' && tokenType === 'collateral') {
+    } else if (orderType === OrderType.SUPPLY && tokenType === 'collateral') {
       dispatch(
         setSupCollateralToken({ collateralToken: tokenMeta.address as Address })
       )
-    } else if (orderType === 'borrow' && tokenType === 'loan') {
+    } else if (orderType === OrderType.BORROW && tokenType === 'loan') {
       dispatch(setBorrowLoanToken({ loanToken: tokenMeta.address as Address }))
-    } else if (orderType === 'borrow' && tokenType === 'collateral') {
+    } else if (orderType === OrderType.BORROW && tokenType === 'collateral') {
       dispatch(
         setBorrowCollateralToken({
           collateralToken: tokenMeta.address as Address,
@@ -77,8 +90,8 @@ const TokenSelector = ({
           padding: '0px !important',
         }}
       >
-        {TokenList.map((item, index) => (
-          <MenuItem value={item.name} key={index}>
+        {TokenList.map((token, index) => (
+          <MenuItem value={token.name} key={index}>
             <Box
               sx={{
                 width: '100%',
@@ -92,11 +105,11 @@ const TokenSelector = ({
               <Image
                 width={24}
                 height={24}
-                src={item.logo}
+                src={token.logo}
                 loading="lazy"
                 alt="USDT logo"
               />
-              <Typography sx={{ m: '0px !important' }}>{item.name}</Typography>
+              <Typography sx={{ m: '0px !important' }}>{token.name}</Typography>
             </Box>
           </MenuItem>
         ))}

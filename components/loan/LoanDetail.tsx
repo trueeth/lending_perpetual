@@ -3,8 +3,6 @@ import {
   Button,
   ClickAwayListener,
   Grow,
-  MenuItem,
-  MenuList,
   Paper,
   Popper,
   Typography,
@@ -73,7 +71,8 @@ const LoanDetail = ({ orderType }: { orderType: OrderType }) => {
     orderType === OrderType.SUPPLY
       ? (Number(actionState.supply.loanAmount) * actionState.supply.lenderFee) /
         100
-      : (Number(actionState.borrow.loanAmount) * actionState.supply.lenderFee) /
+      : (Number(actionState.borrow.loanAmount) *
+          (100 - actionState.supply.lenderFee)) /
         100
   return (
     <Box
@@ -174,8 +173,7 @@ const LoanDetail = ({ orderType }: { orderType: OrderType }) => {
       <Box>
         <Typography>You will Get</Typography>
         <Typography>
-          {trim(receiveAmount)}
-          {`${getTokenNameFromAddress(
+          {`${trim(receiveAmount)} ${getTokenNameFromAddress(
             orderType === OrderType.SUPPLY
               ? actionState.supply.loanToken
               : actionState.borrow.loanToken
