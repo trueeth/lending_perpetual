@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import * as React from 'react'
 import TokenSelector from './TokenSelector'
-import StyledTextField from 'components/styled/TextField'
+import { StyledTextField } from '../styled/TextField'
 import {
   setSupLoanAmount,
   setSupCollateralAmount,
