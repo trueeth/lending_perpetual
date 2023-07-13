@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
-import { StyledTextField } from 'components/styled/TextField'
+import { StyledTextField } from 'components/styled/CustomTextField'
 import { OrderType } from 'interfaces'
 import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux'

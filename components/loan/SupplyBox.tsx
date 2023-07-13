@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import * as React from 'react'
 import TokenSelector from './TokenSelector'
-import { StyledTextField } from '../styled/TextField'
+import { StyledTextField } from '../styled/CustomTextField'
 import {
   setSupLoanAmount,
   setSupCollateralAmount,
@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { IReduxState } from 'store/store'
 import { getTokenNameFromAddress } from 'utils/token'
-import { useAccount, useBalance } from 'wagmi'
+
 import { useTokenBalance } from 'hooks/useTokenBalance'
 import { trim } from 'utils/trim'
 
