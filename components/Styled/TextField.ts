@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles'
 import { TextField } from '@mui/material'
 
-const StyledTextField = styled(TextField)({
+export const StyledTextField = styled(TextField)({
   width: '100px',
   backgroundColor: '#182539',
   border: '1px solid #383944',
@@ -24,5 +24,3 @@ const StyledTextField = styled(TextField)({
     marginLeft: '2px',
   },
 })
-
-export default StyledTextField

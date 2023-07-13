@@ -19,7 +19,7 @@ import { useAccount } from 'wagmi'
 import { useProtocolContract } from 'hooks/useContract'
 import { useSelector } from 'react-redux'
 import { DatePickerType, OrderType } from 'interfaces'
-import useTokenAllowance from 'hooks/useTokenAllowance'
+
 import { getProtocolAddress } from 'utils/addressHelpers'
 import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
 import { parseUnits } from 'viem'
