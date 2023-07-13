@@ -1,9 +1,6 @@
 import { AppBar, Toolbar, Box, Typography } from '@mui/material'
 import * as React from 'react'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
-import ArrowDropDownSharpIcon from '@mui/icons-material/ArrowDropDownSharp'
 import { useRouter } from 'next/router'
 import { ConnectKitButton } from 'connectkit'
 import Image from 'next/image'
@@ -90,49 +87,6 @@ const Header = () => {
               },
             }}
           >
-            <Box>
-              <Button
-                id="basic-button-1"
-                aria-controls={
-                  Boolean(anchorState.btn1) ? 'basic-menu-1' : undefined
-                }
-                aria-haspopup="true"
-                aria-expanded={Boolean(anchorState.btn1) ? 'true' : undefined}
-                onClick={handleClick}
-                name="btn1"
-              >
-                Info
-                <ArrowDropDownSharpIcon />
-              </Button>
-              <Menu
-                id="basic-menu-1"
-                anchorEl={anchorState.btn1}
-                open={Boolean(anchorState.btn1)}
-                onClose={handleClose}
-                MenuListProps={{
-                  'aria-labelledby': 'basic-button-1',
-                }}
-                elevation={0}
-                sx={{
-                  '& .MuiMenuItem-root': {
-                    pl: 2,
-                  },
-                }}
-              >
-                <MenuItem>
-                  <Typography>Tokennomic</Typography>
-                </MenuItem>
-                <MenuItem>
-                  <Typography>Lender Order</Typography>
-                </MenuItem>
-                <MenuItem>
-                  <Typography>Borrower Order</Typography>
-                </MenuItem>
-                <MenuItem>
-                  <Typography>Rewarded Order</Typography>
-                </MenuItem>
-              </Menu>
-            </Box>
             <Box>
               <Button
                 id="basic-button-2"

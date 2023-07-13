@@ -1,18 +1,28 @@
 import Link from 'next/link'
 import { Box, Divider, Grid, Typography } from '@mui/material'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import Button from '@mui/material/Button'
 import { Container } from '@mui/material'
-import EnhancedTable from '../components/Styled/AccountTable'
-import LoanDialog from '../components/Styled/LoanDialog'
+import UserOrderTable from '../components/UserOrderTable'
+import LoanDialog from '../components/loan/LoanDialog'
 import Image from 'next/image'
+import { useAllOrders } from 'hooks/useAllOrders'
+import { useAccount } from 'wagmi'
+import { Order } from 'interfaces'
 
-const IndexPage = () => {
+const Account = () => {
   const [visible, setVisible] = useState(false)
 
-  const handleCloseDialog = () => {
-    setVisible(false)
-  }
+  const { address: account } = useAccount()
+  const { orders, loading } = useAllOrders()
+
+  const userOrders = useMemo(() => {
+    let _orders = orders?.filter((order) => {
+      return order.lender === account || order.borrower === account
+    })
+    return _orders
+  }, [orders, account])
+
   return (
     <>
       <Container
@@ -100,8 +110,8 @@ const IndexPage = () => {
                 <Link href="/">
                   <Button variant="outlined">Orders Book</Button>
                 </Link>
-                <Link href="./dashboard">
-                  <Button variant="outlined">Dashboard</Button>
+                <Link href="./account">
+                  <Button variant="outlined">My Account</Button>
                 </Link>
                 <Button variant="outlined" onClick={() => setVisible(true)}>
                   New Loan
@@ -124,7 +134,7 @@ const IndexPage = () => {
             Orders
           </Typography>
           <Divider sx={{ bgcolor: '#141e2f', p: '0.2px' }} />
-          <EnhancedTable />
+          <UserOrderTable orders={userOrders as Array<Order>} />
         </Box>
         <LoanDialog open={visible} handleClose={() => setVisible(false)} />
       </Container>
@@ -132,4 +142,4 @@ const IndexPage = () => {
   )
 }
 
-export default IndexPage
+export default Account

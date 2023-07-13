@@ -1,21 +1,55 @@
+'use client'
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { Box, Divider, FormControlLabel, Grid, Typography } from '@mui/material'
 import * as React from 'react'
 import Button from '@mui/material/Button'
 import { Container } from '@mui/material'
-import EnhancedTable from '../components/Styled/Table'
-import LoanDialog from '../components/Styled/LoanDialog'
-import CustomCheckBox from '../components/Styled/CheckBox'
-import Filter from '../components/Styled/ordersFilter'
+import OrderTable from '../components/OrderTable'
+import LoanDialog from '../components/loan/LoanDialog'
+import CustomCheckBox from '../components/styled/CheckBox'
+import OrderFilter from '../components/OrdersFilter'
 import Image from 'next/image'
+import { useAllOrders } from 'hooks/useAllOrders'
+import { Order } from 'interfaces'
+import { getTokenNameFromAddress } from 'utils/token'
 
-const IndexPage = () => {
+const Index = () => {
   //dialog
-  const [visible, setVisible] = React.useState(false)
 
-  const handleCloseDialog = () => {
-    setVisible(false)
-  }
+  const [visible, setVisible] = useState(false)
+
+  const [filter, setFilter] = useState<{
+    loanToken: string
+    collateralToken: string
+    orderType: number
+  }>({
+    loanToken: null,
+    collateralToken: null,
+    orderType: null,
+  })
+
+  const { orders, loading } = useAllOrders()
+  const sortedOrders = useMemo(() => {
+    let _orders = orders?.filter((order) => {
+      if (
+        filter.loanToken &&
+        getTokenNameFromAddress(order.loanToken) !== filter.loanToken
+      )
+        return false
+      else if (
+        filter.collateralToken &&
+        getTokenNameFromAddress(order.collateralToken) !==
+          filter.collateralToken
+      )
+        return false
+      else if (filter.orderType !== null && order.role !== filter.orderType)
+        return false
+      else return true
+    })
+    return _orders
+  }, [filter, orders])
+
   return (
     <>
       <Container
@@ -63,7 +97,11 @@ const IndexPage = () => {
                     width={30}
                     height={30}
                   />
-                  <Filter />
+                  <OrderFilter
+                    tokenType="loan"
+                    filter={filter}
+                    setFilter={setFilter}
+                  />
                 </Box>
 
                 <Box
@@ -79,7 +117,11 @@ const IndexPage = () => {
                     width={30}
                     height={30}
                   />
-                  <Filter />
+                  <OrderFilter
+                    tokenType="collateral"
+                    filter={filter}
+                    setFilter={setFilter}
+                  />
                 </Box>
               </Box>
             </Grid>
@@ -102,11 +144,11 @@ const IndexPage = () => {
                   },
                 }}
               >
+                <Link href="/">
+                  <Button variant="outlined">Orders Book</Button>
+                </Link>
                 <Link href="./account">
                   <Button variant="outlined">My Account</Button>
-                </Link>
-                <Link href="./dashboard">
-                  <Button variant="outlined">Dashboard</Button>
                 </Link>
                 <Button variant="outlined" onClick={() => setVisible(true)}>
                   New Loan
@@ -175,14 +217,29 @@ const IndexPage = () => {
                   },
                 }}
               >
-                <Button variant="outlined">Supply</Button>
-                <Button variant="outlined">Borrow</Button>
-                <Button variant="outlined">All</Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => setFilter({ ...filter, orderType: 0 })}
+                >
+                  Supply
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => setFilter({ ...filter, orderType: 1 })}
+                >
+                  Borrow
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => setFilter({ ...filter, orderType: null })}
+                >
+                  All
+                </Button>
               </Box>
             </Box>
           </Box>
           <Divider sx={{ bgcolor: '#141e2f', p: '0.2px' }} />
-          <EnhancedTable />
+          <OrderTable orders={sortedOrders as Array<Order>} />
         </Box>
         <LoanDialog open={visible} handleClose={() => setVisible(false)} />
       </Container>
@@ -190,4 +247,4 @@ const IndexPage = () => {
   )
 }
 
-export default IndexPage
+export default Index

@@ -15,9 +15,7 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-.MuiTableScrollbar {
-  height: 20px;
-}
+
 .MuiTypography-root {
   font-family: Square !important;
 }
@@ -49,7 +47,20 @@ body::-webkit-scrollbar {
   border:1px solid #5a5b5f;
   border-radius: 10px;
   margin-top: 5px;
+  height: 250px !important;
+
 }
+
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #294171;
+  border-radius: 20px;
+}
+
 
 .MuiMenu-root ul li{
   padding:0;
@@ -87,11 +98,21 @@ input[type='number']::-webkit-clear-button {
 }
 
 input[type='number']::-webkit-inner-spin-button {
-  display: none;
+  width: 20px;
+  position: absolute;
+  top: 0;
+  right: 2px;
+  bottom: 0;
+  overflow: hidden,
 }
 
 input[type='number']::-webkit-outside-spin-button {
-  display: none;
+  width: 20px;
+  position: absolute;
+  top: 0;
+  right: 2px;
+  bottom: 0;
+  overflow: hidden,
 }
 
 .form-check-input:checked[type=checkbox] {

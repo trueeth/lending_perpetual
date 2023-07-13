@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles'
 import Button from '@mui/material/Button'
 
-const twopawsButton = styled(Button)({
+const StyledButton = styled(Button)({
   boxShadow: 'none',
   textTransform: 'capitalize',
   fontSize: 16,
@@ -35,4 +35,4 @@ const twopawsButton = styled(Button)({
     boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
   },
 })
-export default twopawsButton
+export default StyledButton
