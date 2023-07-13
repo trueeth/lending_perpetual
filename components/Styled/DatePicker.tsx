@@ -100,7 +100,7 @@ const DatePicker = ({
     ) {
       dispatch(setBorrowEndTimestamp({ timestamp }))
     }
-  }, [date])
+  }, [date, pickerType, orderType])
 
   return (
     <Box
