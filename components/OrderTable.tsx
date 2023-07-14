@@ -154,7 +154,6 @@ function OrderTable({ orders }: { orders: Array<Order> }) {
                   setOrder(order)
                 }}
               >
-                <TableCell>{Number(order.id)}</TableCell>
                 <TableCell>
                   <Box
                     sx={{
