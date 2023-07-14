@@ -94,6 +94,7 @@ function OrderTable({ orders }: { orders: Array<Order> }) {
               },
             }}
           >
+            <TableCell>Order ID</TableCell>
             <TableCell>Loan Amount</TableCell>
             <TableCell>Collateral Amount</TableCell>
             <TableCell>Lender Fee</TableCell>
@@ -153,6 +154,7 @@ function OrderTable({ orders }: { orders: Array<Order> }) {
                   setOrder(order)
                 }}
               >
+                <TableCell>{Number(order.id)}</TableCell>
                 <TableCell>
                   <Box
                     sx={{

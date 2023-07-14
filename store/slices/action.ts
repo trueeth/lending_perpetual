@@ -156,7 +156,7 @@ export const liquidateOrder = createAsyncThunk(
     )
     try {
       await protocolContract.write
-        .getOrder([orderId], {
+        .liquidateOrder([orderId], {
           gasPrice,
           gasLimit: safeGasEstimate,
         })
@@ -184,9 +184,10 @@ export const cancelOrder = createAsyncThunk(
     const safeGasEstimate = calculateGasMargin(
       await protocolContract.estimateGas['cancelOrder']([orderId], { account })
     )
+    console.log('first')
     try {
       await protocolContract.write
-        .getOrder([orderId], {
+        .cancelOrder([orderId], {
           gasPrice,
           gasLimit: safeGasEstimate,
         })
@@ -214,9 +215,10 @@ export const repayOrder = createAsyncThunk(
     const safeGasEstimate = calculateGasMargin(
       await protocolContract.estimateGas['repayOrder']([orderId], { account })
     )
+    console.log('first')
     try {
       await protocolContract.write
-        .getOrder([orderId], {
+        .repayOrder([orderId], {
           gasPrice,
           gasLimit: safeGasEstimate,
         })

@@ -23,6 +23,8 @@ import TokenAmountBox from './styled/TokenAmount'
 import { useAppDispatch } from 'store/store'
 import { cancelOrder, liquidateOrder, repayOrder } from 'store/slices/action'
 import { useProtocolContract } from 'hooks/useContract'
+import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
+import { getProtocolAddress } from 'utils/addressHelpers'
 
 const modalStyle = {
   position: 'absolute' as 'absolute',
@@ -44,6 +46,12 @@ function UserOrderTable({ orders }: { orders: Array<Order> }) {
   const { address: account } = useAccount()
   const protocolContract = useProtocolContract()
   const dispatch = useAppDispatch()
+
+  const [approvalState, approve] = useApproveCallback(
+    order?.loanToken,
+    order?.loanAmount,
+    getProtocolAddress()
+  )
 
   const [submitTxt, handleSubmit] = useMemo(() => {
     if (order) {
@@ -68,15 +76,19 @@ function UserOrderTable({ orders }: { orders: Array<Order> }) {
             ]
           else return ['Close', () => setOpen(false)]
         } else {
-          if (Date.now() > Number(order.timestamps[0]) * 1000)
-            return [
-              'Repay',
-              () =>
-                dispatch(
-                  repayOrder({ account, protocolContract, orderId: order.id })
-                ),
-            ]
-          else return ['Close', () => setOpen(false)]
+          if (Date.now() > Number(order.timestamps[0]) * 1000) {
+            if (approvalState === ApprovalState.APPROVED)
+              return [
+                'Repay',
+                () =>
+                  dispatch(
+                    repayOrder({ account, protocolContract, orderId: order.id })
+                  ),
+              ]
+            else {
+              return ['Approve & Repay', approve]
+            }
+          } else return ['Close', () => setOpen(false)]
         }
       } else if (order.status === OrderState.OPEN) {
         return [
@@ -95,7 +107,7 @@ function UserOrderTable({ orders }: { orders: Array<Order> }) {
         },
       ]
     }
-  }, [order, account])
+  }, [order, account, approvalState, approve, dispatch])
 
   return (
     <TableContainer
