@@ -60,10 +60,13 @@ export default function LoanDialog({ open, handleClose }: IOpenProps) {
           loanAmount: actionState.supply.loanAmount,
           collateralToken: actionState.supply.collateralToken,
           collateralAmount: actionState.supply.collateralAmount,
-          lenderFee: 0,
+          lenderFee:
+            (Number(actionState.supply.loanAmount) *
+              Number(actionState.supply.lenderFee)) /
+            100,
           timestamps: [
-            actionState.supply.startTimestamp,
-            actionState.supply.endTimestamp,
+            actionState.supply.startTimestamp / 1000,
+            actionState.supply.endTimestamp / 1000,
           ],
         })
       )
@@ -76,10 +79,13 @@ export default function LoanDialog({ open, handleClose }: IOpenProps) {
           loanAmount: actionState.borrow.loanAmount,
           collateralToken: actionState.borrow.collateralToken,
           collateralAmount: actionState.borrow.collateralAmount,
-          lenderFee: 0,
+          lenderFee:
+            (Number(actionState.borrow.loanAmount) *
+              Number(actionState.supply.lenderFee)) /
+            100,
           timestamps: [
-            actionState.borrow.startTimestamp,
-            actionState.borrow.endTimestamp,
+            actionState.borrow.startTimestamp / 1000,
+            actionState.borrow.endTimestamp / 1000,
           ],
         })
       )

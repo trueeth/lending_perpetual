@@ -1,6 +1,6 @@
 import fromExponential from 'from-exponential'
 
-export const trim = (number: number, precision?: number) => {
+export const trim = (number: number | string, precision?: number) => {
   const array = fromExponential(number).split('.')
   if (array.length === 1) return fromExponential(number)
   //@ts-ignore

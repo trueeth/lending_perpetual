@@ -56,6 +56,11 @@ export function useApproveCallback(
       return undefined
     }
 
+    if (!account) {
+      console.log('connect wallet')
+      return undefined
+    }
+
     const safeGasEstimate = calculateGasMargin(
       await tokenContract.estimateGas['approve']([spender, amountToApprove], {
         account: tokenContract.account,
@@ -76,6 +81,7 @@ export function useApproveCallback(
         console.error('Failed to approve token', error)
       })
   }, [
+    account,
     approvalState,
     token,
     tokenContract,

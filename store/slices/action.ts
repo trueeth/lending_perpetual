@@ -4,10 +4,13 @@ import { publicClient } from '../../utils/viem'
 import { calculateGasMargin } from '../../utils'
 import { RootState } from '../store'
 import { OrderType } from 'interfaces'
+import { useProtocolContract } from 'hooks/useContract'
 
-interface ICreateSupplyOrder {
+export type IProtocolContract = ReturnType<typeof useProtocolContract>
+
+interface ICreateOrder {
   account: Address
-  protocolContract: any
+  protocolContract: IProtocolContract
   loanToken: Address
   loanAmount: string
   collateralToken: Address
@@ -27,7 +30,7 @@ export const createSupplyOrder = createAsyncThunk(
     collateralAmount,
     lenderFee,
     timestamps,
-  }: ICreateSupplyOrder) => {
+  }: ICreateOrder) => {
     const gasPrice = await publicClient.getGasPrice()
 
     let args: any = [
@@ -35,7 +38,7 @@ export const createSupplyOrder = createAsyncThunk(
       parseUnits(loanAmount, 18),
       collateralToken,
       parseUnits(collateralAmount, 18),
-      lenderFee,
+      parseUnits(String(lenderFee), 18),
       timestamps,
       OrderType.SUPPLY,
     ]
@@ -70,7 +73,7 @@ export const createBorrowOrder = createAsyncThunk(
     collateralAmount,
     lenderFee,
     timestamps,
-  }: ICreateSupplyOrder) => {
+  }: ICreateOrder) => {
     const gasPrice = await publicClient.getGasPrice()
 
     let args: any = [
@@ -78,7 +81,7 @@ export const createBorrowOrder = createAsyncThunk(
       parseUnits(loanAmount, 18),
       collateralToken,
       parseUnits(collateralAmount, 18),
-      lenderFee,
+      parseUnits(String(lenderFee), 18),
       timestamps,
       OrderType.BORROW,
     ]
@@ -102,6 +105,130 @@ export const createBorrowOrder = createAsyncThunk(
   }
 )
 
+export const getOrder = createAsyncThunk(
+  'action/getOrders',
+  async ({
+    account,
+    protocolContract,
+    orderId,
+  }: {
+    account: Address
+    protocolContract: IProtocolContract
+    orderId: bigint
+  }) => {
+    const gasPrice = await publicClient.getGasPrice()
+
+    const safeGasEstimate = calculateGasMargin(
+      await protocolContract.estimateGas['getOrder']([orderId], { account })
+    )
+    try {
+      await protocolContract.write
+        .getOrder([orderId], {
+          gasPrice,
+          gasLimit: safeGasEstimate,
+        })
+        .then((response: Hash) => {
+          console.log(response)
+        })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+)
+
+export const liquidateOrder = createAsyncThunk(
+  'action/liquidate',
+  async ({
+    account,
+    protocolContract,
+    orderId,
+  }: {
+    account: Address
+    protocolContract: IProtocolContract
+    orderId: bigint
+  }) => {
+    const gasPrice = await publicClient.getGasPrice()
+
+    const safeGasEstimate = calculateGasMargin(
+      await protocolContract.estimateGas['liquidateOrder']([orderId], {
+        account,
+      })
+    )
+    try {
+      await protocolContract.write
+        .getOrder([orderId], {
+          gasPrice,
+          gasLimit: safeGasEstimate,
+        })
+        .then((response: Hash) => {
+          console.log(response)
+        })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+)
+export const cancelOrder = createAsyncThunk(
+  'action/cancel',
+  async ({
+    account,
+    protocolContract,
+    orderId,
+  }: {
+    account: Address
+    protocolContract: IProtocolContract
+    orderId: bigint
+  }) => {
+    const gasPrice = await publicClient.getGasPrice()
+
+    const safeGasEstimate = calculateGasMargin(
+      await protocolContract.estimateGas['cancelOrder']([orderId], { account })
+    )
+    try {
+      await protocolContract.write
+        .getOrder([orderId], {
+          gasPrice,
+          gasLimit: safeGasEstimate,
+        })
+        .then((response: Hash) => {
+          console.log(response)
+        })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+)
+export const repayOrder = createAsyncThunk(
+  'action/repay',
+  async ({
+    account,
+    protocolContract,
+    orderId,
+  }: {
+    account: Address
+    protocolContract: IProtocolContract
+    orderId: bigint
+  }) => {
+    const gasPrice = await publicClient.getGasPrice()
+
+    const safeGasEstimate = calculateGasMargin(
+      await protocolContract.estimateGas['repayOrder']([orderId], { account })
+    )
+    try {
+      await protocolContract.write
+        .getOrder([orderId], {
+          gasPrice,
+          gasLimit: safeGasEstimate,
+        })
+        .then((response: Hash) => {
+          console.log(response)
+        })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+)
+
 const now = Date.now()
 
 const initialState = {
@@ -111,7 +238,7 @@ const initialState = {
     collateralToken: '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7',
     collateralAmount: '0',
     lenderFee: 0,
-    startTimestamp: now + 60 * 60 * 24 * 1000 * 3,
+    startTimestamp: now + 60 * 60 * 1000 * 3,
     endTimestamp: now + 60 * 60 * 24 * 1000 * 7,
   },
   borrow: {

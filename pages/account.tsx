@@ -67,23 +67,12 @@ const Account = () => {
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <Image
-                    src="https://cdn.redstone.finance/symbols/eth.svg"
+                    src="https://s2.coinmarketcap.com/static/img/coins/64x64/5805.png"
                     alt="img"
                     width={30}
                     height={30}
                   />
-                  <Typography>15.63</Typography>
-                  <Typography>Gwei</Typography>
-                </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Image
-                    src="https://twopaws.app/static/media/TWOPAW.75a7c20b8a536d2f3310900c94cf2bbf.svg"
-                    alt="img"
-                    width={30}
-                    height={30}
-                  />
-                  <Typography>15.63</Typography>
-                  <Typography>Gwei</Typography>
+                  <Typography>13.97 USD</Typography>
                 </Box>
               </Box>
             </Grid>

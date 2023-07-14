@@ -13,7 +13,7 @@ import { Address } from 'viem'
 import { useDispatch, useSelector } from 'react-redux'
 import { IReduxState } from 'store/store'
 import { OrderType } from 'interfaces'
-import { getTokenNameFromAddress } from 'utils/token'
+import { getTokenAddressFromName, getTokenNameFromAddress } from 'utils/token'
 
 const TokenSelector = ({
   orderType,
@@ -62,7 +62,9 @@ const TokenSelector = ({
     <FormControl sx={{ minWidth: 120 }}>
       <Select
         value={token}
-        onChange={handleChange}
+        onChange={(e) => {
+          if (getTokenAddressFromName(e.target.value) !== '') handleChange(e)
+        }}
         displayEmpty
         sx={{
           color: '#ececec',
