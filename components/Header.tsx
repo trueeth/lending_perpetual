@@ -3,6 +3,7 @@ import * as React from 'react'
 import Button from '@mui/material/Button'
 import { useRouter } from 'next/router'
 import { ConnectKitButton } from 'connectkit'
+import Image from 'next/image'
 
 const Header = () => {
   const router = useRouter()
@@ -45,7 +46,7 @@ const Header = () => {
               alignItems: 'center',
             }}
           >
-            {/* <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', mt: -5 }}>
               <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                 <Image
                   src="https://twopaws.app/static/media/TwoPawsText.89307c3bce199daeedd1811f8d446a33.svg"
@@ -60,10 +61,11 @@ const Header = () => {
                   alt="logo"
                   width={100}
                   height={60}
+                  style={{ marginLeft: '-45px', marginTop: '20px' }}
                 />
               </Box>
-            </Box> */}
-            <Box sx={{ flexGrow: 1 }}></Box>
+            </Box>
+            {/* <Box sx={{ flexGrow: 1 }}></Box> */}
           </Box>
           <Box>
             <Typography

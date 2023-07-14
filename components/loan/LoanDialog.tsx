@@ -1,6 +1,12 @@
 import * as React from 'react'
 import CloseIcon from '@mui/icons-material/Close'
-import { Typography, Dialog, Box, Button } from '@mui/material'
+import {
+  Typography,
+  Dialog,
+  Box,
+  Button,
+  CircularProgress,
+} from '@mui/material'
 import DatePicker from '../styled/DatePicker'
 
 import { useState } from 'react'
@@ -23,6 +29,7 @@ import { DatePickerType, OrderType } from 'interfaces'
 import { getProtocolAddress } from 'utils/addressHelpers'
 import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
 import { parseUnits } from 'viem'
+import { useTokenBalance } from 'hooks/useTokenBalance'
 
 interface IOpenProps {
   open: boolean
@@ -38,6 +45,11 @@ export default function LoanDialog({ open, handleClose }: IOpenProps) {
 
   const actionState = useSelector<IReduxState, IActionSlice>(
     (state) => state.action
+  )
+  const balance = useTokenBalance(
+    view === 'supply'
+      ? actionState.supply.loanToken
+      : actionState.borrow.collateralToken
   )
 
   const [approvalState, approve] = useApproveCallback(
@@ -198,9 +210,19 @@ export default function LoanDialog({ open, handleClose }: IOpenProps) {
             if (approvalState === ApprovalState.APPROVED) createOrder()
             else if (approvalState === ApprovalState.NOT_APPROVED) approve()
           }}
+          disabled={
+            Number(actionState.supply.loanAmount) > Number(balance.data) ||
+            Number(actionState.borrow.collateralAmount) > Number(balance.data)
+              ? true
+              : false
+          }
         >
-          {approvalState === ApprovalState.NOT_APPROVED && 'Approve & '}Create
-          Order
+          {approvalState === ApprovalState.NOT_APPROVED
+            ? 'Approve & Create Order'
+            : // : Number(actionState.supply.loanAmount) > Number(balance.data) ||
+              //   Number(actionState.borrow.collateralAmount) > Number(balance.data)
+              // ? 'Insufficient User balance'
+              'Create Order'}
         </Button>
       </Box>
     </Dialog>
