@@ -71,7 +71,7 @@ const Index = () => {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  gap: 4,
+                  gap: { xs: 1, md: 4 },
                   flexWrap: 'wrap',
                   p: { xs: 1, md: 2 },
                   bgcolor: '#1c2c42',
@@ -132,7 +132,7 @@ const Index = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   flexWrap: 'wrap',
-                  gap: 3,
+                  gap: { xs: 1, md: 3 },
                   p: 2,
                   bgcolor: '#1c2c42',
                   minHeight: '68px !important',
@@ -177,7 +177,9 @@ const Index = () => {
             }}
           >
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography sx={{ fontSize: '25px' }}>Supply Market</Typography>
+              <Typography sx={{ fontSize: '25px', mt: 1 }}>
+                Supply Market
+              </Typography>
               <Typography
                 sx={{ fontSize: '12px', color: 'rgb(149, 151, 161)' }}
               >
