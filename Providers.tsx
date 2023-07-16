@@ -32,6 +32,12 @@ const Providers: React.FC<
           '--ck-primary-button-hover-background': 'rgb(24,37,57)',
           '--ck-secondary-button-background': '#2a3b53',
           '--ck-secondary-button-hover-background': 'rgb(24,37,57)',
+          '--ck-connectbutton-color': 'white',
+          '--ck-body-color': 'white',
+          '--ck-body-background-tertiary': '#293d5b',
+          '--ck-primary-button-color': 'white',
+          '--ck-primary-button-hover-color': 'white',
+          '--ck-connectbutton-hover-color': 'white',
         }}
       >
         <Provider store={store}>

@@ -32,18 +32,24 @@ const SupplyBox = () => {
           sx={{
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'center',
             gap: 1,
+            flexDirection: { xs: 'col', md: 'row' },
             '& .MuiTypography-root': {
               fontSize: { md: '13px !important' },
               color: '#9597a1',
             },
           }}
         >
-          <Typography>Balance:</Typography>
-          <Typography>
-            {trim(Number(balance.data?.formatted ?? '0'))}{' '}
-            {getTokenNameFromAddress(actionState.supply.loanToken)}
-          </Typography>
+          <Box>
+            <Typography>Balance:</Typography>
+          </Box>
+          <Box>
+            <Typography>
+              {trim(Number(balance.data?.formatted ?? '0'))}{' '}
+              {getTokenNameFromAddress(actionState.supply.loanToken)}
+            </Typography>
+          </Box>
         </Box>
       </Box>
       <Box

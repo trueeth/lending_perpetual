@@ -78,7 +78,7 @@ function OrderTable({ orders }: { orders: Array<Order> }) {
       isPendingTxn(pendingTxs, `getOrder-${Number(order?.id)}`) ||
       approvalState === ApprovalState.PENDING
     )
-  }, [approvalState, pendingTxs])
+  }, [approvalState, pendingTxs, order])
 
   const submitTxt = useMemo(() => {
     if (approvalState === ApprovalState.PENDING) return 'Approving'
@@ -88,7 +88,7 @@ function OrderTable({ orders }: { orders: Array<Order> }) {
       return `Approve & ${
         order?.role === OrderRole.SUPPLY ? 'Take Loan' : 'Supply'
       }`
-  }, [account, order, approvalState])
+  }, [order, approvalState])
 
   return (
     <TableContainer

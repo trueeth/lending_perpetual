@@ -138,7 +138,7 @@ export default function LoanDialog({ open, handleClose }: IOpenProps) {
     if (approvalState === ApprovalState.APPROVED)
       return [submitTxt, createOrder]
     else return [submitTxt, approve]
-  }, [approvalState, actionState])
+  }, [approvalState, actionState, approve, createOrder])
 
   return (
     <Dialog
@@ -162,7 +162,7 @@ export default function LoanDialog({ open, handleClose }: IOpenProps) {
           justifyContent: 'space-between',
         }}
       >
-        <Typography p={1} sx={{ fontSize: { xs: '2.2vw', md: '20px' } }}>
+        <Typography p={1} sx={{ fontSize: '20px' }}>
           Create {view === 'supply' ? 'Supply' : 'Borrow'} Loan
         </Typography>
         <CloseIcon onClick={handleClose} sx={{ cursor: 'pointer' }} />

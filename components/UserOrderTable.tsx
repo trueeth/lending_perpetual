@@ -128,7 +128,7 @@ function UserOrderTable({ orders }: { orders: Array<Order> }) {
     if (order) {
       setOrder(orders.find((e) => e.id === order.id))
     }
-  }, [orders])
+  }, [orders, order])
 
   return (
     <TableContainer
