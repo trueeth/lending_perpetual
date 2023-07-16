@@ -5,6 +5,8 @@ import { calculateGasMargin } from '../../utils'
 import { RootState } from '../store'
 import { OrderType } from 'interfaces'
 import { useProtocolContract } from 'hooks/useContract'
+import { clearPendingTxn, fetchPendingTxns } from './pendingTxs'
+import { getDecimals } from 'utils/token'
 
 export type IProtocolContract = ReturnType<typeof useProtocolContract>
 
@@ -21,24 +23,27 @@ interface ICreateOrder {
 
 export const createSupplyOrder = createAsyncThunk(
   'action/createSupplyOrder',
-  async ({
-    account,
-    protocolContract,
-    loanToken,
-    loanAmount,
-    collateralToken,
-    collateralAmount,
-    lenderFee,
-    timestamps,
-  }: ICreateOrder) => {
+  async (
+    {
+      account,
+      protocolContract,
+      loanToken,
+      loanAmount,
+      collateralToken,
+      collateralAmount,
+      lenderFee,
+      timestamps,
+    }: ICreateOrder,
+    { dispatch }
+  ) => {
     const gasPrice = await publicClient.getGasPrice()
 
     let args: any = [
       loanToken,
-      parseUnits(loanAmount, 18),
+      parseUnits(loanAmount, getDecimals(loanToken)),
       collateralToken,
-      parseUnits(collateralAmount, 18),
-      parseUnits(String(lenderFee), 18),
+      parseUnits(collateralAmount, getDecimals(collateralToken)),
+      parseUnits(String(lenderFee), getDecimals(loanToken)),
       timestamps,
       OrderType.SUPPLY,
     ]
@@ -47,6 +52,7 @@ export const createSupplyOrder = createAsyncThunk(
       await protocolContract.estimateGas['newOrder'](args, { account })
     )
 
+    let txHash = undefined
     try {
       await protocolContract.write
         .newOrder(args, {
@@ -54,34 +60,52 @@ export const createSupplyOrder = createAsyncThunk(
           gasLimit: safeGasEstimate,
         })
         .then((response: Hash) => {
-          console.log(response)
+          txHash = response
+          dispatch(
+            fetchPendingTxns({
+              txHash,
+              type: `createSupplyOrder-${loanToken}-${collateralToken}`,
+            })
+          )
         })
     } catch (err) {
       console.log(err)
+    } finally {
+      if (txHash) {
+        const transaction = await publicClient.waitForTransactionReceipt({
+          hash: txHash,
+        })
+        if (transaction.status === 'success') {
+          dispatch(clearPendingTxn(txHash))
+        }
+      }
     }
   }
 )
 
 export const createBorrowOrder = createAsyncThunk(
   'action/createBorrowOrder',
-  async ({
-    account,
-    protocolContract,
-    loanToken,
-    loanAmount,
-    collateralToken,
-    collateralAmount,
-    lenderFee,
-    timestamps,
-  }: ICreateOrder) => {
+  async (
+    {
+      account,
+      protocolContract,
+      loanToken,
+      loanAmount,
+      collateralToken,
+      collateralAmount,
+      lenderFee,
+      timestamps,
+    }: ICreateOrder,
+    { dispatch }
+  ) => {
     const gasPrice = await publicClient.getGasPrice()
 
     let args: any = [
       loanToken,
-      parseUnits(loanAmount, 18),
+      parseUnits(loanAmount, getDecimals(loanToken)),
       collateralToken,
-      parseUnits(collateralAmount, 18),
-      parseUnits(String(lenderFee), 18),
+      parseUnits(collateralAmount, getDecimals(collateralToken)),
+      parseUnits(String(lenderFee), getDecimals(loanToken)),
       timestamps,
       OrderType.BORROW,
     ]
@@ -89,7 +113,7 @@ export const createBorrowOrder = createAsyncThunk(
     const safeGasEstimate = calculateGasMargin(
       await protocolContract.estimateGas['newOrder'](args, { account })
     )
-
+    let txHash = undefined
     try {
       await protocolContract.write
         .newOrder(args, {
@@ -97,30 +121,49 @@ export const createBorrowOrder = createAsyncThunk(
           gasLimit: safeGasEstimate,
         })
         .then((response: Hash) => {
-          console.log(response)
+          txHash = response
+          dispatch(
+            fetchPendingTxns({
+              txHash,
+              type: `createBorrowOrder-${loanToken}-${collateralToken}`,
+            })
+          )
         })
     } catch (err) {
       console.log(err)
+    } finally {
+      if (txHash) {
+        const transaction = await publicClient.waitForTransactionReceipt({
+          hash: txHash,
+        })
+        if (transaction.status === 'success') {
+          dispatch(clearPendingTxn(txHash))
+        }
+      }
     }
   }
 )
 
 export const getOrder = createAsyncThunk(
   'action/getOrders',
-  async ({
-    account,
-    protocolContract,
-    orderId,
-  }: {
-    account: Address
-    protocolContract: IProtocolContract
-    orderId: bigint
-  }) => {
+  async (
+    {
+      account,
+      protocolContract,
+      orderId,
+    }: {
+      account: Address
+      protocolContract: IProtocolContract
+      orderId: bigint
+    },
+    { dispatch }
+  ) => {
     const gasPrice = await publicClient.getGasPrice()
 
     const safeGasEstimate = calculateGasMargin(
       await protocolContract.estimateGas['getOrder']([orderId], { account })
     )
+    let txHash = undefined
     try {
       await protocolContract.write
         .getOrder([orderId], {
@@ -128,25 +171,43 @@ export const getOrder = createAsyncThunk(
           gasLimit: safeGasEstimate,
         })
         .then((response: Hash) => {
-          console.log(response)
+          txHash = response
+          dispatch(
+            fetchPendingTxns({
+              txHash,
+              type: `getOrder-${Number(orderId)}`,
+            })
+          )
         })
     } catch (err) {
       console.log(err)
+    } finally {
+      if (txHash) {
+        const transaction = await publicClient.waitForTransactionReceipt({
+          hash: txHash,
+        })
+        if (transaction.status === 'success') {
+          dispatch(clearPendingTxn(txHash))
+        }
+      }
     }
   }
 )
 
 export const liquidateOrder = createAsyncThunk(
   'action/liquidate',
-  async ({
-    account,
-    protocolContract,
-    orderId,
-  }: {
-    account: Address
-    protocolContract: IProtocolContract
-    orderId: bigint
-  }) => {
+  async (
+    {
+      account,
+      protocolContract,
+      orderId,
+    }: {
+      account: Address
+      protocolContract: IProtocolContract
+      orderId: bigint
+    },
+    { dispatch }
+  ) => {
     const gasPrice = await publicClient.getGasPrice()
 
     const safeGasEstimate = calculateGasMargin(
@@ -154,6 +215,8 @@ export const liquidateOrder = createAsyncThunk(
         account,
       })
     )
+
+    let txHash: Hash = undefined
     try {
       await protocolContract.write
         .liquidateOrder([orderId], {
@@ -161,30 +224,49 @@ export const liquidateOrder = createAsyncThunk(
           gasLimit: safeGasEstimate,
         })
         .then((response: Hash) => {
-          console.log(response)
+          txHash = response
+          dispatch(
+            fetchPendingTxns({
+              txHash,
+              type: `order-${Number(orderId)}`,
+            })
+          )
         })
     } catch (err) {
       console.log(err)
+    } finally {
+      if (txHash) {
+        const transaction = await publicClient.waitForTransactionReceipt({
+          hash: txHash,
+        })
+        if (transaction.status === 'success') {
+          dispatch(clearPendingTxn(txHash))
+        }
+      }
     }
   }
 )
 export const cancelOrder = createAsyncThunk(
   'action/cancel',
-  async ({
-    account,
-    protocolContract,
-    orderId,
-  }: {
-    account: Address
-    protocolContract: IProtocolContract
-    orderId: bigint
-  }) => {
+  async (
+    {
+      account,
+      protocolContract,
+      orderId,
+    }: {
+      account: Address
+      protocolContract: IProtocolContract
+      orderId: bigint
+    },
+    { dispatch }
+  ) => {
     const gasPrice = await publicClient.getGasPrice()
 
     const safeGasEstimate = calculateGasMargin(
       await protocolContract.estimateGas['cancelOrder']([orderId], { account })
     )
-    console.log('first')
+
+    let txHash = undefined
     try {
       await protocolContract.write
         .cancelOrder([orderId], {
@@ -192,30 +274,49 @@ export const cancelOrder = createAsyncThunk(
           gasLimit: safeGasEstimate,
         })
         .then((response: Hash) => {
-          console.log(response)
+          txHash = response
+          dispatch(
+            fetchPendingTxns({
+              txHash,
+              type: `order-${Number(orderId)}`,
+            })
+          )
         })
     } catch (err) {
       console.log(err)
+    } finally {
+      if (txHash) {
+        const transaction = await publicClient.waitForTransactionReceipt({
+          hash: txHash,
+        })
+        if (transaction.status === 'success') {
+          dispatch(clearPendingTxn(txHash))
+        }
+      }
     }
   }
 )
 export const repayOrder = createAsyncThunk(
   'action/repay',
-  async ({
-    account,
-    protocolContract,
-    orderId,
-  }: {
-    account: Address
-    protocolContract: IProtocolContract
-    orderId: bigint
-  }) => {
+  async (
+    {
+      account,
+      protocolContract,
+      orderId,
+    }: {
+      account: Address
+      protocolContract: IProtocolContract
+      orderId: bigint
+    },
+    { dispatch }
+  ) => {
     const gasPrice = await publicClient.getGasPrice()
 
     const safeGasEstimate = calculateGasMargin(
       await protocolContract.estimateGas['repayOrder']([orderId], { account })
     )
-    console.log('first')
+
+    let txHash = undefined
     try {
       await protocolContract.write
         .repayOrder([orderId], {
@@ -223,10 +324,25 @@ export const repayOrder = createAsyncThunk(
           gasLimit: safeGasEstimate,
         })
         .then((response: Hash) => {
-          console.log(response)
+          txHash = response
+          dispatch(
+            fetchPendingTxns({
+              txHash,
+              type: `order-${Number(orderId)}`,
+            })
+          )
         })
     } catch (err) {
       console.log(err)
+    } finally {
+      if (txHash) {
+        const transaction = await publicClient.waitForTransactionReceipt({
+          hash: txHash,
+        })
+        if (transaction.status === 'success') {
+          dispatch(clearPendingTxn(txHash))
+        }
+      }
     }
   }
 )
@@ -235,18 +351,18 @@ const now = Date.now()
 
 const initialState = {
   supply: {
-    loanToken: '0x8Fa3A5CD4DE7cD6a21d5D2cb454A9627259DDb06',
+    loanToken: '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e',
     loanAmount: '0',
-    collateralToken: '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7',
+    collateralToken: '0xc7198437980c041c805a1edcba50c1ce5db95118',
     collateralAmount: '0',
     lenderFee: 0,
     startTimestamp: now + 60 * 60 * 1000 * 3,
     endTimestamp: now + 60 * 60 * 24 * 1000 * 7,
   },
   borrow: {
-    loanToken: '0x8Fa3A5CD4DE7cD6a21d5D2cb454A9627259DDb06',
+    loanToken: '0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e',
     loanAmount: '0',
-    collateralToken: '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7',
+    collateralToken: '0xc7198437980c041c805a1edcba50c1ce5db95118',
     collateralAmount: '0',
     lenderFee: 0,
     startTimestamp: now,

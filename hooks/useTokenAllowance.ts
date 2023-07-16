@@ -13,6 +13,9 @@ export default function useTokenAllowance(
     async () => {
       let result = await contract.read.allowance([owner, spender])
       return result
+    },
+    {
+      refreshInterval: 1000,
     }
   )
   return { allowance: allowance ?? 0n, loading: isLoading }

@@ -4,6 +4,7 @@ import Button from '@mui/material/Button'
 import { useRouter } from 'next/router'
 import { ConnectKitButton } from 'connectkit'
 import Image from 'next/image'
+import LogoImage from '../assets/images/logo.png'
 
 const Header = () => {
   const router = useRouter()
@@ -27,7 +28,7 @@ const Header = () => {
         backgroundImage: 'linear-gradient(90deg,#243b55,#182539)! important',
       }}
     >
-      <Toolbar disableGutters variant="dense" sx={{ p: 3, mt: 2 }}>
+      <Toolbar disableGutters variant="dense" sx={{ p: 3 }}>
         <Box
           sx={{
             width: '100%',
@@ -46,26 +47,9 @@ const Header = () => {
               alignItems: 'center',
             }}
           >
-            <Box sx={{ display: 'flex', mt: -5 }}>
-              <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                <Image
-                  src="https://twopaws.app/static/media/TwoPawsText.89307c3bce199daeedd1811f8d446a33.svg"
-                  alt="logoText"
-                  width={100}
-                  height={60}
-                />
-              </Box>
-              <Box>
-                <Image
-                  src="https://twopaws.app/static/media/twoPaws.1e6aa9782eb237ce91ba260a6bb39f22.svg"
-                  alt="logo"
-                  width={100}
-                  height={60}
-                  style={{ marginLeft: '-45px', marginTop: '20px' }}
-                />
-              </Box>
+            <Box>
+              <Image src={LogoImage} alt="logo" width={40} height={50} />
             </Box>
-            {/* <Box sx={{ flexGrow: 1 }}></Box> */}
           </Box>
           <Box>
             <Typography

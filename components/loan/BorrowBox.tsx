@@ -21,16 +21,7 @@ const BorrowBox = () => {
 
   const balance = useTokenBalance(actionState.borrow.collateralToken)
   return (
-    <Box
-      sx={{
-        '& .MuiTypography-root': {
-          mt: 2,
-          mb: 0.5,
-          fontSize: { xs: '10px', md: '15px' },
-          letterSpacing: 1,
-        },
-      }}
-    >
+    <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', px: 2 }}>
         <Typography>Collateral Amount</Typography>
         <Box
@@ -49,7 +40,6 @@ const BorrowBox = () => {
             {trim(Number(balance.data?.formatted ?? '0'))}{' '}
             {getTokenNameFromAddress(actionState.borrow.collateralToken)}
           </Typography>
-          <Typography sx={{ color: '#3c63d7 !important' }}>Max</Typography>
         </Box>
       </Box>
       <Box
@@ -88,9 +78,9 @@ const BorrowBox = () => {
             },
           }}
         >
-          <Typography>1 USDC =</Typography>
+          {/* <Typography>1 USDC =</Typography>
           <Typography>0.99</Typography>
-          <Typography>$</Typography>
+          <Typography>$</Typography> */}
         </Box>
       </Box>
       <Box

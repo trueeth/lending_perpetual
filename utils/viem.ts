@@ -1,7 +1,7 @@
 import { createPublicClient, http } from 'viem'
-import { goerli } from 'viem/chains'
+import { avalanche } from 'viem/chains'
 
 export const publicClient = createPublicClient({
-  chain: goerli,
+  chain: avalanche,
   transport: http(),
 })

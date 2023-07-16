@@ -19,3 +19,8 @@ export const getTokenAddressFromName = (tokenName: string) => {
   const tokenMeta = TokenList.find((e) => e.name === tokenName)
   return tokenMeta.address
 }
+
+export const getDecimals = (token: Address) => {
+  const tokenMeta = TokenList.find((e) => e.address === token)
+  return tokenMeta.decimal ?? 18
+}

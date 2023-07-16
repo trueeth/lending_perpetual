@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface IPendingTxn {
-  readonly text: string
+  readonly txHash: string
   readonly type: string
 }
 
@@ -15,7 +15,7 @@ const pendingTxnsSlice = createSlice({
       state.push(action.payload)
     },
     clearPendingTxn(state, action: PayloadAction<string>) {
-      const target = state.find((x) => x.type === action.payload)
+      const target = state.find((x) => x.txHash === action.payload)
       if (target) {
         state.splice(state.indexOf(target), 1)
       }

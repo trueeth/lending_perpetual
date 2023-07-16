@@ -9,7 +9,7 @@ export const getAddressFromMap = (
   address: Addresses,
   chainId?: number
 ): `0x${string}` => {
-  return address[chainId] ? address[chainId] : address[ChainId.Goerli]
+  return address[chainId] ? address[chainId] : address[ChainId.Avalanche]
 }
 
 export const getMulticallAddress = (chainId?: number) => {

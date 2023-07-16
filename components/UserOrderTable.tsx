@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import {
   TableCell,
   Table,
@@ -10,11 +10,16 @@ import {
   Box,
   Button,
   Modal,
+  CircularProgress,
 } from '@mui/material'
 import Image from 'next/image'
 import { Order, OrderState } from 'interfaces'
 import { formatUnits } from 'viem'
-import { getTokenLogoFromAddress, getTokenNameFromAddress } from 'utils/token'
+import {
+  getDecimals,
+  getTokenLogoFromAddress,
+  getTokenNameFromAddress,
+} from 'utils/token'
 import { trim } from 'utils/trim'
 import { formatTimestamp } from 'utils/time'
 import CloseIcon from '@mui/icons-material/Close'
@@ -25,6 +30,8 @@ import { cancelOrder, liquidateOrder, repayOrder } from 'store/slices/action'
 import { useProtocolContract } from 'hooks/useContract'
 import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
 import { getProtocolAddress } from 'utils/addressHelpers'
+import { usePendingTxs } from 'hooks/usePendingTxs'
+import { isPendingTxn } from 'store/slices/pendingTxs'
 
 const modalStyle = {
   position: 'absolute' as 'absolute',
@@ -46,6 +53,7 @@ function UserOrderTable({ orders }: { orders: Array<Order> }) {
   const { address: account } = useAccount()
   const protocolContract = useProtocolContract()
   const dispatch = useAppDispatch()
+  const pendingTxs = usePendingTxs()
 
   const [approvalState, approve] = useApproveCallback(
     order?.loanToken,
@@ -107,7 +115,20 @@ function UserOrderTable({ orders }: { orders: Array<Order> }) {
         },
       ]
     }
-  }, [order, account, approvalState, approve, dispatch])
+  }, [order, account, approvalState, approve, dispatch, protocolContract])
+
+  const loading = useMemo(() => {
+    return (
+      approvalState === ApprovalState.PENDING ||
+      isPendingTxn(pendingTxs, `order-${Number(order?.id)}`)
+    )
+  }, [approvalState, order, pendingTxs])
+
+  useEffect(() => {
+    if (order) {
+      setOrder(orders.find((e) => e.id === order.id))
+    }
+  }, [orders])
 
   return (
     <TableContainer
@@ -147,9 +168,18 @@ function UserOrderTable({ orders }: { orders: Array<Order> }) {
         </TableHead>
         <TableBody>
           {orders?.map((order: Order, index) => {
-            let feeAmount = formatUnits(order.lenderFeeAmount, 18)
-            let loanAmount = formatUnits(order.loanAmount, 18)
-            let collateralAmount = formatUnits(order.collateralAmount, 18)
+            let feeAmount = formatUnits(
+              order.lenderFeeAmount,
+              getDecimals(order.loanToken)
+            )
+            let loanAmount = formatUnits(
+              order.loanAmount,
+              getDecimals(order.loanToken)
+            )
+            let collateralAmount = formatUnits(
+              order.collateralAmount,
+              getDecimals(order.collateralToken)
+            )
             let feePercent = (Number(feeAmount) / Number(loanAmount)) * 100
             let duration =
               order.status === OrderState.OPEN
@@ -334,7 +364,10 @@ function UserOrderTable({ orders }: { orders: Array<Order> }) {
                     alt="token_logo"
                   />
                   <Typography ml={1}>
-                    {formatUnits(order.loanAmount, 18)}
+                    {formatUnits(
+                      order.loanAmount,
+                      getDecimals(order.loanToken)
+                    )}
                   </Typography>
                   <Typography ml={0.5}>
                     {getTokenNameFromAddress(order.loanToken)}
@@ -351,7 +384,10 @@ function UserOrderTable({ orders }: { orders: Array<Order> }) {
                     alt="token_logo"
                   />
                   <Typography ml={1}>
-                    {formatUnits(order.collateralAmount, 18)}
+                    {formatUnits(
+                      order.collateralAmount,
+                      getDecimals(order.collateralToken)
+                    )}
                   </Typography>
                   <Typography ml={0.5}>
                     {getTokenNameFromAddress(order.collateralToken)}
@@ -362,11 +398,27 @@ function UserOrderTable({ orders }: { orders: Array<Order> }) {
                 <Typography>Lender Fee</Typography>
                 <Typography>
                   {trim(
-                    (Number(formatUnits(order.lenderFeeAmount, 18)) /
-                      Number(formatUnits(order.loanAmount, 18))) *
+                    (Number(
+                      formatUnits(
+                        order.lenderFeeAmount,
+                        getDecimals(order.loanToken)
+                      )
+                    ) /
+                      Number(
+                        formatUnits(
+                          order.loanAmount,
+                          getDecimals(order.loanToken)
+                        )
+                      )) *
                       100
                   )}{' '}
-                  % ( {trim(formatUnits(order.lenderFeeAmount, 18))}{' '}
+                  % ({' '}
+                  {trim(
+                    formatUnits(
+                      order.lenderFeeAmount,
+                      getDecimals(order.loanToken)
+                    )
+                  )}{' '}
                   {getTokenNameFromAddress(order.loanToken)} )
                 </Typography>
               </Box>
@@ -379,11 +431,11 @@ function UserOrderTable({ orders }: { orders: Array<Order> }) {
                       order.lender === account
                         ? formatUnits(
                             order.loanAmount + order.lenderFeeAmount,
-                            18
+                            getDecimals(order.loanToken)
                           )
                         : formatUnits(
                             order.loanAmount - order.lenderFeeAmount,
-                            18
+                            getDecimals(order.loanToken)
                           )
                     }
                     symbol={getTokenNameFromAddress(order.loanToken)}
@@ -444,7 +496,10 @@ function UserOrderTable({ orders }: { orders: Array<Order> }) {
             </Box>
             <Box mx={5}>
               <Button onClick={handleSubmit}>
-                <Typography> {submitTxt}</Typography>
+                {submitTxt}
+                {loading && (
+                  <CircularProgress sx={{ color: 'white', ml: 2 }} size={20} />
+                )}
               </Button>
             </Box>
           </Box>

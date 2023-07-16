@@ -1,6 +1,6 @@
 import { Store } from '@reduxjs/toolkit'
 import { createConfig, WagmiConfig } from 'wagmi'
-import { avalanche, avalancheFuji, goerli } from 'wagmi/chains'
+import { avalanche } from 'wagmi/chains'
 import { ConnectKitProvider, getDefaultConfig } from 'connectkit'
 import { ToastsProvider } from './context/ToastsContext'
 import { Provider } from 'react-redux'
@@ -10,7 +10,7 @@ const config = createConfig(
     appName: 'Lending',
     // infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
     // alchemyId:  process.env.NEXT_PUBLIC_ALCHEMY_ID,
-    chains: [goerli, avalanche, avalancheFuji],
+    chains: [avalanche],
     walletConnectProjectId: 'e542ff314e26ff34de2d4fba98db70bb',
   })
 )

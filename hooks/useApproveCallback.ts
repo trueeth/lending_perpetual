@@ -8,10 +8,15 @@ import { useTokenContract } from './useContract'
 import { calculateGasMargin } from 'utils'
 import { useCallWithGasPrice } from './useCallWithGasPrice'
 import { SendTransactionResult } from 'wagmi/dist/actions'
+import { useDispatch } from 'react-redux'
+import { clearPendingTxn, fetchPendingTxns } from 'store/slices/pendingTxs'
+import { publicClient } from 'utils/viem'
+import { useHasPendingApproval } from './usePendingTxs'
 
 export enum ApprovalState {
   UNKNOWN,
   NOT_APPROVED,
+  PENDING,
   APPROVED,
 }
 
@@ -22,15 +27,19 @@ export function useApproveCallback(
 ): [ApprovalState, () => Promise<void | SendTransactionResult>] {
   const { address: account } = useAccount()
   const { allowance } = useTokenAllowance(token, account, getProtocolAddress())
+  const pendingApproval = useHasPendingApproval(token, spender)
+  const dispatch = useDispatch()
 
   const approvalState = useMemo(() => {
     if (!amountToApprove || !spender || !token) return ApprovalState.UNKNOWN
     if (isNative(token)) return ApprovalState.APPROVED
 
-    return allowance >= amountToApprove
-      ? ApprovalState.APPROVED
-      : ApprovalState.NOT_APPROVED
-  }, [amountToApprove, spender, token, allowance])
+    return allowance < amountToApprove
+      ? pendingApproval
+        ? ApprovalState.PENDING
+        : ApprovalState.NOT_APPROVED
+      : ApprovalState.APPROVED
+  }, [amountToApprove, spender, token, allowance, pendingApproval])
 
   const tokenContract = useTokenContract(token)
   const { callWithGasPrice } = useCallWithGasPrice()
@@ -74,8 +83,19 @@ export function useApproveCallback(
       [spender, amountToApprove],
       { gas: safeGasEstimate }
     )
-      .then((response) => {
-        return response
+      .then(async (response) => {
+        dispatch(
+          fetchPendingTxns({
+            txHash: response.hash,
+            type: `approve-${token}-${spender}`,
+          })
+        )
+        const transaction = await publicClient.waitForTransactionReceipt({
+          hash: response.hash,
+        })
+        if (transaction.status === 'success') {
+          dispatch(clearPendingTxn(response.hash))
+        }
       })
       .catch((error: any) => {
         console.error('Failed to approve token', error)

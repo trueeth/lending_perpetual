@@ -13,7 +13,7 @@ export const getContract = <
 >({
   abi,
   address,
-  chainId = ChainId.Goerli,
+  chainId = ChainId.Avalanche,
   publicClient,
   signer,
 }: {

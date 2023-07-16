@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useMemo } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import {
   Typography,
@@ -30,6 +30,9 @@ import { getProtocolAddress } from 'utils/addressHelpers'
 import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
 import { parseUnits } from 'viem'
 import { useTokenBalance } from 'hooks/useTokenBalance'
+import { usePendingTxs } from 'hooks/usePendingTxs'
+import { isPendingTxn } from 'store/slices/pendingTxs'
+import { getDecimals } from 'utils/token'
 
 interface IOpenProps {
   open: boolean
@@ -42,14 +45,10 @@ export default function LoanDialog({ open, handleClose }: IOpenProps) {
   const dispatch = useAppDispatch()
   const { address: account } = useAccount()
   const protocolContract = useProtocolContract()
+  const pendingTxs = usePendingTxs()
 
   const actionState = useSelector<IReduxState, IActionSlice>(
     (state) => state.action
-  )
-  const balance = useTokenBalance(
-    view === 'supply'
-      ? actionState.supply.loanToken
-      : actionState.borrow.collateralToken
   )
 
   const [approvalState, approve] = useApproveCallback(
@@ -57,8 +56,14 @@ export default function LoanDialog({ open, handleClose }: IOpenProps) {
       ? actionState.supply.loanToken
       : actionState.borrow.collateralToken,
     view === 'supply'
-      ? parseUnits(actionState.supply.loanAmount, 18)
-      : parseUnits(actionState.borrow.collateralAmount, 18),
+      ? parseUnits(
+          actionState.supply.loanAmount,
+          getDecimals(actionState.supply.loanToken)
+        )
+      : parseUnits(
+          actionState.borrow.collateralAmount,
+          getDecimals(actionState.borrow.collateralToken)
+        ),
     getProtocolAddress()
   )
 
@@ -103,6 +108,37 @@ export default function LoanDialog({ open, handleClose }: IOpenProps) {
       )
     }
   }
+
+  const loading = useMemo(() => {
+    if (view === 'supply') {
+      return (
+        isPendingTxn(
+          pendingTxs,
+          `createSupplyOrder-${actionState.supply.loanToken}-${actionState.supply.collateralToken}`
+        ) || approvalState === ApprovalState.PENDING
+      )
+    } else if (view === 'borrow') {
+      return (
+        isPendingTxn(
+          pendingTxs,
+          `createBorrowOrder-${actionState.borrow.loanToken}-${actionState.borrow.collateralToken}`
+        ) || approvalState === ApprovalState.PENDING
+      )
+    }
+  }, [view, actionState, pendingTxs, approvalState])
+
+  const [submitTxt, handleSumbit] = useMemo(() => {
+    const submitTxt =
+      approvalState === ApprovalState.PENDING
+        ? 'Approving'
+        : approvalState === ApprovalState.APPROVED
+        ? 'Create Order'
+        : 'Approve & Create Order'
+
+    if (approvalState === ApprovalState.APPROVED)
+      return [submitTxt, createOrder]
+    else return [submitTxt, approve]
+  }, [approvalState, actionState])
 
   return (
     <Dialog
@@ -207,22 +243,14 @@ export default function LoanDialog({ open, handleClose }: IOpenProps) {
       >
         <Button
           onClick={() => {
-            if (approvalState === ApprovalState.APPROVED) createOrder()
-            else if (approvalState === ApprovalState.NOT_APPROVED) approve()
+            if (loading) return
+            handleSumbit()
           }}
-          disabled={
-            Number(actionState.supply.loanAmount) > Number(balance.data) ||
-            Number(actionState.borrow.collateralAmount) > Number(balance.data)
-              ? true
-              : false
-          }
         >
-          {approvalState === ApprovalState.NOT_APPROVED
-            ? 'Approve & Create Order'
-            : // : Number(actionState.supply.loanAmount) > Number(balance.data) ||
-              //   Number(actionState.borrow.collateralAmount) > Number(balance.data)
-              // ? 'Insufficient User balance'
-              'Create Order'}
+          {submitTxt}
+          {loading && (
+            <CircularProgress sx={{ color: 'white', ml: 2 }} size={20} />
+          )}
         </Button>
       </Box>
     </Dialog>

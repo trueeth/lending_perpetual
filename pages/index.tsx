@@ -12,7 +12,7 @@ import OrderFilter from '../components/OrdersFilter'
 import Image from 'next/image'
 import { useAllOrders } from 'hooks/useAllOrders'
 import { Order } from 'interfaces'
-import { getTokenNameFromAddress } from 'utils/token'
+import { getDecimals, getTokenNameFromAddress } from 'utils/token'
 
 const Index = () => {
   //dialog
