@@ -24,7 +24,7 @@ const BorrowBox = () => {
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', px: 2 }}>
         <Typography>Collateral Amount</Typography>
-        <Box
+        {/* <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -34,13 +34,19 @@ const BorrowBox = () => {
               color: '#9597a1',
             },
           }}
+        > */}
+        <Typography
+          sx={{ fontSize: { md: '13px !important' }, color: '#9597a1' }}
         >
-          <Typography>Balance: </Typography>
-          <Typography>
+          Balance: {trim(Number(balance.data?.formatted ?? '0'))}
+          {getTokenNameFromAddress(actionState.supply.loanToken)}
+        </Typography>
+
+        {/* <Typography>
             {trim(Number(balance.data?.formatted ?? '0'))}{' '}
             {getTokenNameFromAddress(actionState.borrow.collateralToken)}
           </Typography>
-        </Box>
+        </Box> */}
       </Box>
       <Box
         sx={{

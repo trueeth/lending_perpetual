@@ -84,7 +84,7 @@ const LoanDetail = ({ orderType }: { orderType: OrderType }) => {
           alignItems: 'center',
         },
         '& .MuiTypography-root': {
-          fontSize: { xs: '10px', md: '13px' },
+          fontSize: '15px',
         },
       }}
     >

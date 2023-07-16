@@ -162,7 +162,7 @@ export default function LoanDialog({ open, handleClose }: IOpenProps) {
           justifyContent: 'space-between',
         }}
       >
-        <Typography p={1} sx={{ fontSize: '20px' }}>
+        <Typography p={1} sx={{ fontSize: '18px' }}>
           Create {view === 'supply' ? 'Supply' : 'Borrow'} Loan
         </Typography>
         <CloseIcon onClick={handleClose} sx={{ cursor: 'pointer' }} />
@@ -238,7 +238,7 @@ export default function LoanDialog({ open, handleClose }: IOpenProps) {
           whiteSpace: 'nowrap',
           mb: 1,
           mt: 2,
-          mx: 3,
+          mx: { xs: 0, md: 3 },
         }}
       >
         <Button

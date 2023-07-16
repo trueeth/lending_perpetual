@@ -99,7 +99,7 @@ const TokenSelector = ({
                 width: '100%',
                 display: 'flex',
                 alignItems: 'center',
-                pl: 3,
+                pl: 2,
                 gap: 1,
                 py: 1,
               }}

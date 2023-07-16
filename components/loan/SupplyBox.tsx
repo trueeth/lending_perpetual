@@ -28,29 +28,35 @@ const SupplyBox = () => {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', px: 2 }}>
         <Typography>Loan Amount</Typography>
 
-        <Box
+        {/* <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             gap: 1,
+            whiteSpace: 'nowrap',
             flexDirection: { xs: 'col', md: 'row' },
             '& .MuiTypography-root': {
               fontSize: { md: '13px !important' },
               color: '#9597a1',
             },
           }}
+        > */}
+
+        <Typography
+          sx={{ fontSize: { md: '13px !important' }, color: '#9597a1' }}
         >
-          <Box>
-            <Typography>Balance:</Typography>
-          </Box>
-          <Box>
+          Balance: {trim(Number(balance.data?.formatted ?? '0'))}
+          {getTokenNameFromAddress(actionState.supply.loanToken)}
+        </Typography>
+
+        {/* <Box>
             <Typography>
               {trim(Number(balance.data?.formatted ?? '0'))}{' '}
               {getTokenNameFromAddress(actionState.supply.loanToken)}
             </Typography>
-          </Box>
-        </Box>
+          </Box> */}
+        {/* </Box> */}
       </Box>
       <Box
         sx={{
