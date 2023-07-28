@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   multiCall: {
     1: '0xcA11bde05977b3631167028862bE2a173976CA11',

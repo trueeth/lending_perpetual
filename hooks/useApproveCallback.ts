@@ -100,15 +100,7 @@ export function useApproveCallback(
       .catch((error: any) => {
         console.error('Failed to approve token', error)
       })
-  }, [
-    account,
-    approvalState,
-    token,
-    tokenContract,
-    amountToApprove,
-    spender,
-    callWithGasPrice,
-  ])
+  }, [approvalState, token, tokenContract, amountToApprove, spender, account, callWithGasPrice, dispatch])
 
   return [approvalState, approve]
 }
