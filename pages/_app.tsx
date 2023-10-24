@@ -14,6 +14,8 @@ const config = createConfig(
     // Required
     appName: 'Your App Name',
 
+
+    
     // Optional
     appDescription: 'Your App Description',
     appUrl: 'https://family.co', // your app's url
