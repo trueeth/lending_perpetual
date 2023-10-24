@@ -1,23 +1,55 @@
+'use client'
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
-//import Layout from '../components/Layout'
 import { Box, Divider, FormControlLabel, Grid, Typography } from '@mui/material'
 import * as React from 'react'
-import Menu, { MenuProps } from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 import { Container } from '@mui/material'
-import EnhancedTable from '../components/Styled/Table'
-import SupplyDialog from '../components/Styled/SupplyDialog'
-import CustomCheckBox from '../components/Styled/CheckBox'
-import Filter from '../components/Styled/Filter'
+import OrderTable from '../components/OrderTable'
+import LoanDialog from '../components/loan/LoanDialog'
+import CustomCheckBox from '../components/styled/CheckBox'
+import OrderFilter from '../components/OrdersFilter'
+import Image from 'next/image'
+import { useAllOrders } from 'hooks/useAllOrders'
+import { Order } from 'interfaces'
+import { getDecimals, getTokenNameFromAddress } from 'utils/token'
 
-const IndexPage = () => {
+const Index = () => {
   //dialog
-  const [visible, setVisible] = React.useState(false)
 
-  const handleCloseDialog = () => {
-    setVisible(false)
-  }
+  const [visible, setVisible] = useState(false)
+
+  const [filter, setFilter] = useState<{
+    loanToken: string
+    collateralToken: string
+    orderType: number
+  }>({
+    loanToken: null,
+    collateralToken: null,
+    orderType: null,
+  })
+
+  const { orders, loading } = useAllOrders()
+  const sortedOrders = useMemo(() => {
+    let _orders = orders?.filter((order) => {
+      if (
+        filter.loanToken &&
+        getTokenNameFromAddress(order.loanToken) !== filter.loanToken
+      )
+        return false
+      else if (
+        filter.collateralToken &&
+        getTokenNameFromAddress(order.collateralToken) !==
+          filter.collateralToken
+      )
+        return false
+      else if (filter.orderType !== null && order.role !== filter.orderType)
+        return false
+      else return true
+    })
+    return _orders
+  }, [filter, orders])
+
   return (
     <>
       <Container
@@ -37,8 +69,10 @@ const IndexPage = () => {
               <Box
                 sx={{
                   display: 'flex',
-                  justifyContent: 'space-around',
+                  justifyContent: 'center',
                   alignItems: 'center',
+                  gap: { xs: 1, md: 4 },
+                  flexWrap: 'wrap',
                   p: { xs: 1, md: 2 },
                   bgcolor: '#1c2c42',
                   borderRadius: 5,
@@ -50,8 +84,45 @@ const IndexPage = () => {
                   },
                 }}
               >
-                <Filter />
-                <Filter />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 3,
+                  }}
+                >
+                  <Image
+                    src="https://twopaws.io/token-icons/default.png"
+                    alt="img"
+                    width={30}
+                    height={30}
+                  />
+                  <OrderFilter
+                    tokenType="loan"
+                    filter={filter}
+                    setFilter={setFilter}
+                  />
+                </Box>
+
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 3,
+                  }}
+                >
+                  <Image
+                    src="https://twopaws.io/token-icons/default.png"
+                    alt="img"
+                    width={30}
+                    height={30}
+                  />
+                  <OrderFilter
+                    tokenType="collateral"
+                    filter={filter}
+                    setFilter={setFilter}
+                  />
+                </Box>
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -61,7 +132,7 @@ const IndexPage = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   flexWrap: 'wrap',
-                  gap: 3,
+                  gap: { xs: 1, md: 3 },
                   p: 2,
                   bgcolor: '#1c2c42',
                   minHeight: '68px !important',
@@ -73,11 +144,11 @@ const IndexPage = () => {
                   },
                 }}
               >
+                <Link href="/">
+                  <Button variant="outlined">Orders Book</Button>
+                </Link>
                 <Link href="./account">
                   <Button variant="outlined">My Account</Button>
-                </Link>
-                <Link href="./dashboard">
-                  <Button variant="outlined">Dashboard</Button>
                 </Link>
                 <Button variant="outlined" onClick={() => setVisible(true)}>
                   New Loan
@@ -106,7 +177,9 @@ const IndexPage = () => {
             }}
           >
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography sx={{ fontSize: '25px' }}>Supply Market</Typography>
+              <Typography sx={{ fontSize: '25px', mt: 1 }}>
+                Supply Market
+              </Typography>
               <Typography
                 sx={{ fontSize: '12px', color: 'rgb(149, 151, 161)' }}
               >
@@ -146,19 +219,34 @@ const IndexPage = () => {
                   },
                 }}
               >
-                <Button variant="outlined">Supply</Button>
-                <Button variant="outlined">Borrow</Button>
-                <Button variant="outlined">All</Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => setFilter({ ...filter, orderType: 0 })}
+                >
+                  Supply
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => setFilter({ ...filter, orderType: 1 })}
+                >
+                  Borrow
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => setFilter({ ...filter, orderType: null })}
+                >
+                  All
+                </Button>
               </Box>
             </Box>
           </Box>
           <Divider sx={{ bgcolor: '#141e2f', p: '0.2px' }} />
-          <EnhancedTable />
+          <OrderTable orders={sortedOrders as Array<Order>} />
         </Box>
-        <SupplyDialog open={visible} handleClose={() => setVisible(false)} />
+        <LoanDialog open={visible} handleClose={() => setVisible(false)} />
       </Container>
     </>
   )
 }
 
-export default IndexPage
+export default Index

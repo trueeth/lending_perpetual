@@ -1,20 +1,17 @@
 /** @type {import('next').NextConfig} */
-module.exports = (phase, { defaultConfig }) => {
-  return {
-    ...defaultConfig,
-
-    webpack: (config) => {
-      config.resolve = {
-        ...config.resolve,
-        fallback: {
-          "fs": false,
-          "path": false,
-          "os": false,
-          'net': false, 
-          'tls':false
-        }
-      }
-      return config
-    },
-  }
+const nextConfig = {
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false, net: false, tls: false }
+    return config
+  },
+  images: {
+    domains: [
+      'twopaws.io',
+      'twopaws.app',
+      'arbiscan.io',
+      's2.coinmarketcap.com',
+    ],
+  },
 }
+
+module.exports = nextConfig

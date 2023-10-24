@@ -1,18 +1,28 @@
 import Link from 'next/link'
-//import Layout from '../components/Layout'
 import { Box, Divider, Grid, Typography } from '@mui/material'
-import * as React from 'react'
+import { useState, useMemo } from 'react'
 import Button from '@mui/material/Button'
 import { Container } from '@mui/material'
-import EnhancedTable from '../components/Styled/Table_account'
+import UserOrderTable from '../components/UserOrderTable'
+import LoanDialog from '../components/loan/LoanDialog'
+import Image from 'next/image'
+import { useAllOrders } from 'hooks/useAllOrders'
+import { useAccount } from 'wagmi'
+import { Order } from 'interfaces'
 
-import SupplyDialog from '../components/Styled/SupplyDialog'
-const IndexPage = () => {
-  const [visible, setVisible] = React.useState(false)
+const Account = () => {
+  const [visible, setVisible] = useState(false)
 
-  const handleCloseDialog = () => {
-    setVisible(false)
-  }
+  const { address: account } = useAccount()
+  const { orders, loading } = useAllOrders()
+
+  const userOrders = useMemo(() => {
+    let _orders = orders?.filter((order) => {
+      return order.lender === account || order.borrower === account
+    })
+    return _orders
+  }, [orders, account])
+
   return (
     <>
       <Container
@@ -45,35 +55,24 @@ const IndexPage = () => {
                 }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <img
+                  <Image
                     src="https://twopaws.app/static/media/fuel.95a53fd17843648c51b0d000461e4216.svg"
                     alt="img"
-                    width="30"
-                    height="30"
+                    width={30}
+                    height={30}
                   />
                   <Typography>15.63</Typography>
                   <Typography>Gwei</Typography>
                 </Box>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <img
-                    src="https://cdn.redstone.finance/symbols/eth.svg"
+                  <Image
+                    src="https://s2.coinmarketcap.com/static/img/coins/64x64/5805.png"
                     alt="img"
-                    width="30"
-                    height="30"
+                    width={30}
+                    height={30}
                   />
-                  <Typography>15.63</Typography>
-                  <Typography>Gwei</Typography>
-                </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <img
-                    src="https://twopaws.app/static/media/TWOPAW.75a7c20b8a536d2f3310900c94cf2bbf.svg"
-                    alt="img"
-                    width="30"
-                    height="30"
-                  />
-                  <Typography>15.63</Typography>
-                  <Typography>Gwei</Typography>
+                  <Typography>13.97 USD</Typography>
                 </Box>
               </Box>
             </Grid>
@@ -100,8 +99,8 @@ const IndexPage = () => {
                 <Link href="/">
                   <Button variant="outlined">Orders Book</Button>
                 </Link>
-                <Link href="./dashboard">
-                  <Button variant="outlined">Dashboard</Button>
+                <Link href="./account">
+                  <Button variant="outlined">My Account</Button>
                 </Link>
                 <Button variant="outlined" onClick={() => setVisible(true)}>
                   New Loan
@@ -124,12 +123,12 @@ const IndexPage = () => {
             Orders
           </Typography>
           <Divider sx={{ bgcolor: '#141e2f', p: '0.2px' }} />
-          <EnhancedTable />
+          <UserOrderTable orders={userOrders as Array<Order>} />
         </Box>
-        <SupplyDialog open={visible} handleClose={() => setVisible(false)} />
+        <LoanDialog open={visible} handleClose={() => setVisible(false)} />
       </Container>
     </>
   )
 }
 
-export default IndexPage
+export default Account

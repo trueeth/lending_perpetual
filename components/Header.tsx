@@ -1,14 +1,13 @@
 import { AppBar, Toolbar, Box, Typography } from '@mui/material'
 import * as React from 'react'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
-import ArrowDropDownSharpIcon from '@mui/icons-material/ArrowDropDownSharp'
 import { useRouter } from 'next/router'
-// import { ConnectKitButton } from 'connectkit'
+import { ConnectKitButton } from 'connectkit'
+import Image from 'next/image'
+import LogoImage from '../assets/images/logo.png'
+
 const Header = () => {
   const router = useRouter()
-  console.log(router.pathname)
   const [anchorState, setAnchorState] = React.useState<any | null>({
     btn1: null,
     btn2: null,
@@ -29,7 +28,7 @@ const Header = () => {
         backgroundImage: 'linear-gradient(90deg,#243b55,#182539)! important',
       }}
     >
-      <Toolbar disableGutters variant="dense" sx={{ p: 2 }}>
+      <Toolbar disableGutters variant="dense" sx={{ p: 3 }}>
         <Box
           sx={{
             width: '100%',
@@ -48,31 +47,9 @@ const Header = () => {
               alignItems: 'center',
             }}
           >
-            <Box sx={{ display: 'flex' }}>
-              <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                <img
-                  src="https://twopaws.app/static/media/TwoPawsText.89307c3bce199daeedd1811f8d446a33.svg"
-                  alt="logoText"
-                  style={{
-                    width: '100px',
-                    height: '60px',
-                    cursor: 'pointer',
-                  }}
-                />
-              </Box>
-              <Box>
-                <img
-                  src="https://twopaws.app/static/media/twoPaws.1e6aa9782eb237ce91ba260a6bb39f22.svg"
-                  alt="logo"
-                  style={{
-                    width: '100px',
-                    height: '60px',
-                    cursor: 'pointer',
-                  }}
-                />
-              </Box>
+            <Box>
+              <Image src={LogoImage} alt="logo" width={40} height={50} />
             </Box>
-            <Box sx={{ flexGrow: 1 }}></Box>
           </Box>
           <Box>
             <Typography
@@ -98,36 +75,6 @@ const Header = () => {
           >
             <Box>
               <Button
-                id="basic-button-1"
-                aria-controls={
-                  Boolean(anchorState.btn1) ? 'basic-menu-1' : undefined
-                }
-                aria-haspopup="true"
-                aria-expanded={Boolean(anchorState.btn1) ? 'true' : undefined}
-                onClick={handleClick}
-                name="btn1"
-              >
-                Info
-                <ArrowDropDownSharpIcon />
-              </Button>
-              <Menu
-                id="basic-menu-1"
-                anchorEl={anchorState.btn1}
-                open={Boolean(anchorState.btn1)}
-                onClose={handleClose}
-                MenuListProps={{
-                  'aria-labelledby': 'basic-button-1',
-                }}
-                elevation={0}
-              >
-                <MenuItem>Tokennomic</MenuItem>
-                <MenuItem>Lender Order</MenuItem>
-                <MenuItem>Borrower Order</MenuItem>
-                <MenuItem>Rewarded Order</MenuItem>
-              </Menu>
-            </Box>
-            <Box>
-              <Button
                 id="basic-button-2"
                 aria-controls={
                   Boolean(anchorState.btn2) ? 'basic-menu-2' : undefined
@@ -140,7 +87,7 @@ const Header = () => {
                 Avalanche
               </Button>
             </Box>
-            {/* <ConnectKitButton /> */}
+            <ConnectKitButton />
           </Box>
         </Box>
       </Toolbar>
